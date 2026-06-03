@@ -512,8 +512,6 @@ main { position: relative; z-index: 2; }
   cursor: pointer;
   transition: all 0.3s;
   white-space: nowrap;
-  text-decoration: none;
-  display: inline-block;
 }
 .btn-map:hover { background: var(--rose); color: #fff; }
 
@@ -966,7 +964,7 @@ main { position: relative; z-index: 2; }
             <span class="detail-label">婚礼地点：</span>
             <span class="detail-value" id="venue-text">贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组</span>
             <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制</button>
-            <a class="btn-map" href="https://uri.amap.com/search?keyword=贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组" target="_blank" rel="noopener">🗺️ 导航</a>
+            <button class="btn-map" onclick="openMap()">🗺️ 导航</button>
           </div>
           <div class="detail-row">
             <span class="detail-icon">🍽️</span>
@@ -1333,6 +1331,20 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
+// ==================== 地图导航 ====================
+function openMap() {
+  const addr = '贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组';
+  const addrTown = '贵州省铜仁市松桃县乌罗镇';
+  const isWeChat = /micromessenger/i.test(navigator.userAgent);
+
+  // 微信里用腾讯地图，外面用高德
+  const url = isWeChat
+    ? `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&referer=yyfloveyjj`
+    : `https://uri.amap.com/navigation?to=${encodeURIComponent(addrTown)}`;
+
+  window.open(url, '_blank');
+}
 
 // ==================== 复制地址 ====================
 function copyAddress() {
