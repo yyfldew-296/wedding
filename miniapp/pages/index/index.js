@@ -3,6 +3,7 @@ const app = getApp();
 Page({
   data: {
     splashDone: false,
+    musicPlaying: false,
     cd: { days: '00', hours: '00', mins: '00', secs: '00' },
     venue: '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌',
     photos: [
@@ -30,11 +31,13 @@ Page({
     blessName: '',
     blessMsg: '',
     blessings: [],
-    timer: null
+    timer: null,
+    _audio: null
   },
 
   onLoad() {
     setTimeout(() => this.setData({ splashDone: true }), 1500);
+    this.initMusic();
     this.startCountdown();
     this.initBlessings();
     // 开启分享
@@ -43,6 +46,31 @@ Page({
 
   onUnload() {
     if (this.data.timer) clearInterval(this.data.timer);
+    if (this.data._audio) { this.data._audio.destroy(); }
+  },
+
+  // ===== 音乐 =====
+  initMusic() {
+    const audio = wx.createInnerAudioContext();
+    // TODO: 替换为你们的婚礼音乐链接
+    audio.src = '';
+    audio.loop = true;
+    audio.autoplay = false;
+    this.data._audio = audio;
+  },
+
+  toggleMusic() {
+    const audio = this.data._audio;
+    if (!audio || !audio.src) {
+      wx.showToast({ title: '音乐链接待配置', icon: 'none' });
+      return;
+    }
+    if (this.data.musicPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    this.setData({ musicPlaying: !this.data.musicPlaying });
   },
 
   // ===== 倒计时 =====

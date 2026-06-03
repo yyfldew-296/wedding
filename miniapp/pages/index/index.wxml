@@ -7,6 +7,11 @@
   <text class="splash-names">杨亦富 & 杨静静</text>
 </view>
 
+<!-- 音乐按钮 -->
+<view class="music-btn {{musicPlaying ? 'music-spin' : ''}}" bindtap="toggleMusic">
+  <text>{{musicPlaying ? '🎵' : '🔇'}}</text>
+</view>
+
 <scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll">
 
   <!-- 1. 封面 -->
