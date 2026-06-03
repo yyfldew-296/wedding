@@ -4,6 +4,7 @@ Page({
   data: {
     splashDone: false,
     musicPlaying: false,
+    scrollPercent: 0,
     cd: { days: '00', hours: '00', mins: '00', secs: '00' },
     venue: '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌',
     photos: [
@@ -46,6 +47,19 @@ Page({
     this.initBlessings();
     // 开启分享
     wx.showShareMenu({ withShareTicket: true, menus: ['shareAppMessage', 'shareTimeline'] });
+  },
+
+  onPageScroll(e) {
+    if (!this._maxScroll) {
+      const info = wx.getSystemInfoSync();
+      this._winH = info.windowHeight;
+      wx.createSelectorQuery().select('.main-wrap').boundingClientRect(rect => {
+        if (rect) this._maxScroll = Math.max(1, rect.height - this._winH);
+      }).exec();
+    }
+    if (this._maxScroll) {
+      this.setData({ scrollPercent: Math.min(100, Math.round(e.scrollTop / this._maxScroll * 100)) });
+    }
   },
 
   onUnload() {

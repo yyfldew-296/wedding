@@ -15,7 +15,11 @@
   <text>{{musicPlaying ? '🎵' : '🔇'}}</text>
 </view>
 
-<!-- 主内容 -->
+<!-- 滚动进度条 -->
+<view class="progress-bar">
+  <view class="progress-fill" style="width:{{scrollPercent}}%"></view>
+</view>
+
 <view class="main-wrap">
 
   <!-- 1. 封面 -->
@@ -30,6 +34,9 @@
     <text class="cover-subtitle">从深圳到铜仁，从相遇到白头</text>
     <text class="scroll-hint">向上滑动 开启我们的故事</text>
   </view>
+
+  <!-- 分隔线 -->
+  <view class="divider"><text>❦</text></view>
 
   <!-- 2. 邀请语 -->
   <view class="scene">
@@ -55,6 +62,8 @@
     </view>
   </view>
 
+  <view class="divider"><text>❦</text></view>
+
   <!-- 3. 倒计时 -->
   <view class="scene">
     <view class="glass-card">
@@ -70,18 +79,23 @@
     </view>
   </view>
 
-  <!-- 4. 照片轮播 -->
+  <view class="divider"><text>❦</text></view>
+
+  <!-- 4. 照片 · 长图全宽 -->
   <view class="scene">
-    <text class="sec-title" style="margin-bottom:30rpx;">💑 我们的日常</text>
-    <swiper indicator-dots indicator-color="rgba(255,255,255,0.4)" indicator-active-color="#fff" autoplay circular interval="3500" duration="500" class="photo-swiper">
-      <swiper-item wx:for="{{photos}}" wx:key="index">
-        <image src="{{item.jpg}}" mode="aspectFill" class="swiper-photo" bindtap="previewPhoto" data-idx="{{index}}" />
-        <view class="swiper-caption">
-          <text class="swiper-cap-text">{{item.caption}}</text>
+    <text class="sec-title">💑 我们的日常</text>
+    <view class="ornament">❦</view>
+    <view class="photo-list">
+      <view class="photo-full" wx:for="{{photos}}" wx:key="index" bindtap="previewPhoto" data-idx="{{index}}">
+        <image src="{{item.jpg}}" mode="widthFix" class="photo-full-img" lazy-load />
+        <view class="photo-full-cap">
+          <text class="photo-full-cap-text">{{item.caption}}</text>
         </view>
-      </swiper-item>
-    </swiper>
+      </view>
+    </view>
   </view>
+
+  <view class="divider"><text>❦</text></view>
 
   <!-- 5. 时间线 -->
   <view class="scene">
@@ -103,6 +117,8 @@
     </view>
   </view>
 
+  <view class="divider"><text>❦</text></view>
+
   <!-- 6. 誓言 -->
   <view class="scene">
     <view class="glass-card">
@@ -123,6 +139,8 @@
     </view>
   </view>
 
+  <view class="divider"><text>❦</text></view>
+
   <!-- 7. 婚礼详情 -->
   <view class="scene">
     <view class="glass-card">
@@ -140,6 +158,8 @@
       </view>
     </view>
   </view>
+
+  <view class="divider"><text>❦</text></view>
 
   <!-- 8. 祝福墙 -->
   <view class="scene">
