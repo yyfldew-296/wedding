@@ -1385,8 +1385,9 @@ updateCountdown();
 
 // ==================== 地图导航 ====================
 function openMapApp(type) {
-  // 完整地址：高德已验证可搜到杨立掌
-  const addr = '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌';
+  // 坐标：乌罗镇杨立掌
+  const lat = 28.05, lng = 108.95;
+  const keyword = '杨立掌';
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
   let app = type;
@@ -1395,8 +1396,10 @@ function openMapApp(type) {
   }
 
   const urls = {
-    amap: `https://uri.amap.com/navigation?to=${encodeURIComponent(addr)}`,
-    tencent: `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&region=铜仁市&referer=yyfloveyjj`,
+    // 高德：坐标导航（最精准）
+    amap: `https://uri.amap.com/navigation?to=${lng},${lat},${encodeURIComponent(keyword)}`,
+    // 腾讯：标记坐标点
+    tencent: `https://apis.map.qq.com/uri/v1/marker?marker=coord:${lat},${lng};title:${encodeURIComponent(keyword)}&referer=yyfloveyjj`,
   };
 
   window.open(urls[app], '_blank');
