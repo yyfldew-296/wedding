@@ -1,5 +1,5 @@
 <!-- 婚礼请柬 — 杨亦富 ❤ 杨静静 | 小程序版 -->
-<scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll" bindscroll="onScroll">
+<scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll">
 
   <!-- 1. 封面 -->
   <view class="section cover">

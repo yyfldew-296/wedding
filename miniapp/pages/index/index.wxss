@@ -1,4 +1,4 @@
-/* === 页面滚动 === */
+﻿/* === 页面滚动 === */
 .page-scroll { height: 100vh; }
 
 /* === 区块 === */
@@ -31,11 +31,11 @@
 /* === 封面 === */
 .cover { position: relative; }
 .cover-deco { display: flex; gap: 24rpx; margin-bottom: 12rpx; }
-.lantern-icon { font-size: 56rpx; filter: drop-shadow(0 0 20rpx rgba(200,120,80,0.5)); }
+.lantern-icon { font-size: 56rpx;  }
 .shuangxi-big {
   font-size: 140rpx; font-weight: bold;
-  background: linear-gradient(180deg, #f0d8a0, #c9963a 30%, #b88030 60%, #8b5820);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, #f0d8a0, #c9963a 30%, #b88030 60%, #8b5820); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  
   line-height: 1;
 }
 .names-row {
@@ -168,7 +168,7 @@
 
 /* === 底部 === */
 .footer { text-align: center; padding: 60rpx 30rpx; }
-.end-xi { font-size: 80rpx; background: linear-gradient(180deg, #d4a070, #b87040); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.end-xi { font-size: 80rpx; background: linear-gradient(180deg, #d4a070, #b87040); -webkit-background-clip: text; -webkit-text-fill-color: transparent;  }
 .names-sm { font-size: 30rpx; color: #4a2c20; letter-spacing: 10rpx; display: block; margin-top: 20rpx; }
 .motto { font-size: 22rpx; color: #6b3a2a; display: block; margin-top: 12rpx; }
 .motto-sm { margin-top: 6rpx; opacity: 0.7; }
