@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>杨亦富 ❤ 杨静静 | 婚礼请柬</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <meta name="description" content="2027年1月23日（腊月十六），杨亦富与杨静静将在贵州铜仁松桃举行婚礼，诚邀您的见证。">
 <meta name="keywords" content="婚礼请柬,杨亦富,杨静静,结婚,贵州,铜仁">
 <!-- Open Graph（微信/QQ/Facebook 分享预览） -->
@@ -521,35 +519,6 @@ main { position: relative; z-index: 2; }
 }
 .btn-map:hover { background: var(--rose); color: #fff; }
 
-/* ===== 地图 ===== */
-.map-container { width: 100%; }
-.map-frame {
-  width: 100%; height: 320px;
-  border: 2px solid #e8c8b8; border-radius: 12px;
-  background: #fef8f4;
-}
-.map-buttons {
-  display: flex; gap: 12px;
-  justify-content: center; margin-top: 14px;
-  flex-wrap: wrap;
-}
-.btn-map-nav {
-  padding: 10px 24px;
-  background: var(--rose);
-  color: #fff;
-  border: none;
-  border-radius: 24px;
-  font-size: 0.9rem;
-  font-family: inherit;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.btn-map-nav:hover { background: var(--bg-deep); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(168,90,58,0.4); }
-/* Leaflet 弹窗样式 */
-.leaflet-popup-content { font-family: inherit; color: var(--text-dark); text-align: center; font-size: 0.9rem; }
-.leaflet-popup-content b { color: var(--bg-deep); }
-
 /* ===== 7. 誓言 ===== */
 .vows-grid {
   display: grid;
@@ -757,8 +726,6 @@ main { position: relative; z-index: 2; }
   .detail-label { font-size: 0.85rem; }
   .detail-value { font-size: 0.85rem; }
   .btn-copy, .btn-map { padding: 6px 16px; font-size: 0.8rem; }
-  .map-frame { height: 240px; }
-  .btn-map-nav { padding: 8px 18px; font-size: 0.82rem; }
   /* 绸带 */
   .ribbon-title { font-size: 0.85rem; padding: 6px 20px; letter-spacing: 4px; }
   /* 导航点 */
@@ -1013,25 +980,7 @@ main { position: relative; z-index: 2; }
     </div>
   </section>
 
-  <!-- ===== 8. 婚礼地图 ===== -->
-  <section class="section">
-    <div class="card-3d reveal" id="card-map">
-      <div class="card-3d-inner" style="max-width:660px;">
-        <div class="section-title">婚 礼 地 图</div>
-        <div class="ornament">❦</div>
-        <div class="section-subtitle">贵州省铜仁市松桃苗族自治县乌罗镇杨立掌</div>
-        <div class="map-container">
-          <div id="wedding-map" class="map-frame"></div>
-          <div class="map-buttons">
-            <button class="btn-map-nav" onclick="openMapApp('amap')">📱 高德地图导航</button>
-            <button class="btn-map-nav" onclick="openMapApp('tencent')">📱 腾讯地图导航</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 9. 祝福墙 ===== -->
+  <!-- ===== 8. 祝福墙 ===== -->
   <section class="section">
     <div class="card-3d reveal" id="card-blessing">
       <div class="card-3d-inner">
@@ -1488,32 +1437,6 @@ addBlessing('爸爸', '儿子，成家了就是大人了。对静静好一点，
 addBlessing('深圳的同事阿杰', '老杨终于结婚了！从代码到婚礼，一路看着你们走过来。祝你们新婚快乐，幸福美满！');
 addBlessing('静静的闺蜜', '静静要幸福！你找到了一个把你写进代码里的男人——这比任何情书都浪漫 💕');
 
-// ==================== Leaflet 地图 ====================
-(function initMap() {
-  const mapEl = document.getElementById('wedding-map');
-  if (!mapEl) return;
-  // 贵州省铜仁市松桃苗族自治县乌罗镇杨立掌
-  const lat = 28.05, lng = 108.95;
-  const map = L.map(mapEl, {
-    center: [lat, lng],
-    zoom: 14,
-    zoomControl: true,
-    attributionControl: false,
-  });
-  // OpenStreetMap 瓦片
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-  }).addTo(map);
-  // 自定义图标
-  const icon = L.divIcon({
-    className: 'map-marker',
-    html: '<div style="background:#c45a4a;color:#fff;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(180,90,50,0.5);"><span style="transform:rotate(45deg);font-size:18px;">📍</span></div>',
-    iconSize: [36, 36],
-    iconAnchor: [18, 36],
-  });
-  L.marker([lat, lng], { icon }).addTo(map)
-    .bindPopup('<b>💒 杨亦富 & 杨静静</b><br>乌罗镇 · 杨立掌<br><small>导航到乌罗镇后问路即可</small>').openPopup();
-})();
 </script>
 </body>
 </html>
