@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -411,13 +411,6 @@ main { position: relative; z-index: 2; }
   box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(180,100,70,0.25);
   z-index: 10;
 }
-.photo-placeholder {
-  width: 100%; aspect-ratio: 4/3;
-  background: linear-gradient(135deg, #fef0e8, #fdf5ef, #fef8f2);
-  border-radius: 1px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.5rem; color: #d4b0a0;
-}
 .photo-caption {
   position: absolute; bottom: 8px; left: 10px; right: 10px;
   text-align: center;
@@ -826,7 +819,7 @@ main { position: relative; z-index: 2; }
         <div class="photo-wall" id="photo-wall">
           <!-- 照片通过JS动态加载，把你和静静的日常照放进来 -->
         </div>
-        <p class="photo-hint">📸 点击照片看大图 · 把你和静静的日常照发给我，替换这些占位图</p>
+        <p class="photo-hint">📸 点击照片看大图 · </p>
       </div>
     </div>
   </section>
@@ -1017,21 +1010,20 @@ const WEDDING_DATE = new Date('2027-01-23T10:18:00');
 
 // ==================== 照片数据（替换为你和静静的日常照！） ====================
 // 💡 共12张日常照，按时间从早到晚排列
-//    照片在 图片/ 文件夹下
 //    如果顺序或标题需要调整，改这个数组就行
 const PHOTOS = [
-  { src: '图片/微信图片_20260603110032_52_40.jpg', caption: '2024年秋 · 初见', emoji: '📷' },
-  { src: '图片/微信图片_20260603110034_53_40.jpg', caption: '在一起的那天', emoji: '🌹' },
-  { src: '图片/微信图片_20260603110037_54_40.jpg', caption: '他的镜头里全是我', emoji: '💕' },
-  { src: '图片/微信图片_20260603110040_55_40.jpg', caption: '他在深圳，每晚视频', emoji: '💻' },
-  { src: '图片/微信图片_20260603110042_56_40.jpg', caption: '周末约会', emoji: '💑' },
-  { src: '图片/微信图片_20260603110044_57_40.jpg', caption: '一起做饭的日常', emoji: '🍳' },
-  { src: '图片/微信图片_20260603110047_58_40.jpg', caption: '最幸福的一刻', emoji: '✨' },
-  { src: '图片/微信图片_20260603110049_59_40.jpg', caption: '他说"嫁给我"', emoji: '💍' },
-  { src: '图片/微信图片_20260603110054_61_40.jpg', caption: '我们一起选车', emoji: '🚗' },
-  { src: '图片/微信图片_20260603110055_62_40.jpg', caption: '甜蜜日常', emoji: '💝' },
-  { src: '图片/微信图片_20260603110058_63_40.jpg', caption: '在一起就很好', emoji: '💌' },
-  { src: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.jpg', caption: '我们的请柬', emoji: '🏮' },
+  { src: '图片/微信图片_20260603110032_52_40.jpg', caption: '2024年秋 · 初见' },
+  { src: '图片/微信图片_20260603110034_53_40.jpg', caption: '在一起的那天' },
+  { src: '图片/微信图片_20260603110037_54_40.jpg', caption: '他的镜头里全是我' },
+  { src: '图片/微信图片_20260603110040_55_40.jpg', caption: '他在深圳，每晚视频' },
+  { src: '图片/微信图片_20260603110042_56_40.jpg', caption: '周末约会' },
+  { src: '图片/微信图片_20260603110044_57_40.jpg', caption: '一起做饭的日常' },
+  { src: '图片/微信图片_20260603110047_58_40.jpg', caption: '最幸福的一刻' },
+  { src: '图片/微信图片_20260603110049_59_40.jpg', caption: '他说"嫁给我"' },
+  { src: '图片/微信图片_20260603110054_61_40.jpg', caption: '我们一起选车' },
+  { src: '图片/微信图片_20260603110055_62_40.jpg', caption: '甜蜜日常' },
+  { src: '图片/微信图片_20260603110058_63_40.jpg', caption: '在一起就很好' },
+  { src: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.jpg', caption: '我们的请柬' },
 ];
 let currentPhotoIdx = 0;
 
@@ -1047,10 +1039,7 @@ function renderPhotoWall() {
   const wall = document.getElementById('photo-wall');
   wall.innerHTML = PHOTOS.map((p, i) => `
     <div class="photo-frame reveal" onclick="openLightbox(${i})">
-      ${p.src
-        ? `<img src="${p.src}" alt="${p.caption}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:1px;" loading="lazy">`
-        : `<div class="photo-placeholder">${p.emoji}</div>`
-      }
+		<img src="${p.src}" alt="${p.caption}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:1px;" loading="lazy">
       <div class="photo-caption">${p.caption}</div>
     </div>
   `).join('');
