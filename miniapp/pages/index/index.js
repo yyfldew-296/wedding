@@ -72,7 +72,7 @@ Page({
   initMusic() {
     const audio = wx.createInnerAudioContext();
     // TODO: 替换为你们的婚礼音乐链接
-    audio.src = '';
+    audio.src = 'https://music.163.com/song/media/outer/url?id=5252847.mp3';
     audio.loop = true;
     audio.autoplay = false;
     this.data._audio = audio;
@@ -80,10 +80,6 @@ Page({
 
   toggleMusic() {
     const audio = this.data._audio;
-    if (!audio || !audio.src) {
-      wx.showToast({ title: '音乐链接待配置', icon: 'none' });
-      return;
-    }
     if (this.data.musicPlaying) {
       audio.pause();
     } else {
