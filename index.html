@@ -519,6 +519,32 @@ main { position: relative; z-index: 2; }
 }
 .btn-map:hover { background: var(--rose); color: #fff; }
 
+/* ===== 地图 ===== */
+.map-container { width: 100%; }
+.map-frame {
+  width: 100%; height: 320px;
+  border: 2px solid #e8c8b8; border-radius: 12px;
+  background: #fef8f4;
+}
+.map-buttons {
+  display: flex; gap: 12px;
+  justify-content: center; margin-top: 14px;
+  flex-wrap: wrap;
+}
+.btn-map-nav {
+  padding: 10px 24px;
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-map-nav:hover { background: var(--bg-deep); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(168,90,58,0.4); }
+
 /* ===== 7. 誓言 ===== */
 .vows-grid {
   display: grid;
@@ -726,6 +752,8 @@ main { position: relative; z-index: 2; }
   .detail-label { font-size: 0.85rem; }
   .detail-value { font-size: 0.85rem; }
   .btn-copy, .btn-map { padding: 6px 16px; font-size: 0.8rem; }
+  .map-frame { height: 240px; }
+  .btn-map-nav { padding: 8px 18px; font-size: 0.82rem; }
   /* 绸带 */
   .ribbon-title { font-size: 0.85rem; padding: 6px 20px; letter-spacing: 4px; }
   /* 导航点 */
@@ -968,7 +996,7 @@ main { position: relative; z-index: 2; }
             <span class="detail-label">婚礼地点：</span>
             <span class="detail-value" id="venue-text">贵州省铜仁市松桃县乌罗镇杨立掌</span>
             <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制</button>
-            <button class="btn-map" onclick="openMap()">🗺️ 导航</button>
+            <button class="btn-map" onclick="openMapApp('auto')">🗺️ 导航</button>
           </div>
           <div class="detail-row">
             <span class="detail-icon">🍽️</span>
@@ -980,7 +1008,30 @@ main { position: relative; z-index: 2; }
     </div>
   </section>
 
-  <!-- ===== 8. 祝福墙 ===== -->
+  <!-- ===== 8. 婚礼地图 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-map">
+      <div class="card-3d-inner" style="max-width:660px;">
+        <div class="section-title">婚 礼 地 图</div>
+        <div class="ornament">❦</div>
+        <div class="section-subtitle">贵州省铜仁市松桃县乌罗镇杨立掌</div>
+        <div class="map-container">
+          <iframe class="map-frame"
+            src="https://uri.amap.com/marker?position=108.95,28.05&name=杨亦富&杨静静婚礼·杨立掌&callnative=0"
+            allow="geolocation"
+            loading="lazy"
+            title="婚礼地点地图">
+          </iframe>
+          <div class="map-buttons">
+            <button class="btn-map-nav" onclick="openMapApp('amap')">📱 高德地图导航</button>
+            <button class="btn-map-nav" onclick="openMapApp('tencent')">📱 腾讯地图导航</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 9. 祝福墙 ===== -->
   <section class="section">
     <div class="card-3d reveal" id="card-blessing">
       <div class="card-3d-inner">
@@ -1333,17 +1384,22 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ==================== 地图导航 ====================
-function openMap() {
+function openMapApp(type) {
   const addr = '贵州省铜仁市松桃县乌罗镇杨立掌';
-  const addrTown = '贵州省铜仁市松桃县乌罗镇';
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
-  // 微信里用腾讯地图，外面用高德
-  const url = isWeChat
-    ? `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&referer=yyfloveyjj`
-    : `https://uri.amap.com/navigation?to=${encodeURIComponent(addrTown)}`;
+  let app = type;
+  // auto: 微信→腾讯地图, 其他→高德
+  if (app === 'auto') {
+    app = isWeChat ? 'tencent' : 'amap';
+  }
 
-  window.open(url, '_blank');
+  const urls = {
+    amap: `https://uri.amap.com/navigation?to=${encodeURIComponent(addr)}`,
+    tencent: `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&referer=yyfloveyjj`,
+  };
+
+  window.open(urls[app], '_blank');
 }
 
 // ==================== 复制地址 ====================
