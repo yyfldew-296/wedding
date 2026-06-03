@@ -499,6 +499,23 @@ main { position: relative; z-index: 2; }
 }
 .btn-copy:hover { background: var(--bg-deep); }
 .btn-copy.copied { background: #2e7d32; }
+.btn-map {
+  margin-left: 6px;
+  padding: 4px 14px;
+  background: #fff;
+  color: var(--rose);
+  border: 1.5px solid var(--rose);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-map:hover { background: var(--rose); color: #fff; }
 
 /* ===== 7. 誓言 ===== */
 .vows-grid {
@@ -677,21 +694,55 @@ main { position: relative; z-index: 2; }
 
 /* ===== 响应式 ===== */
 @media (max-width: 600px) {
-  .card-3d-inner { padding: 30px 18px; }
-  .invite-scroll { padding: 28px 18px; }
-  .countdown-box { min-width: 56px; padding: 14px 10px; }
-  .countdown-box .num { font-size: 2rem; }
-  .photo-wall { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .section { padding: 40px 12px; }
+  .card-3d-inner { padding: 24px 14px; }
+  .invite-scroll { padding: 22px 14px; }
+  .section-title { font-size: 1.4rem; letter-spacing: 4px; }
+  .section-subtitle { font-size: 0.8rem; letter-spacing: 2px; }
+  /* 倒计时 */
+  .countdown-box { min-width: 52px; padding: 12px 8px; }
+  .countdown-box .num { font-size: 1.6rem; }
+  .countdown-box .label { font-size: 0.7rem; }
+  .countdown-grid { gap: 8px; }
+  /* 照片 */
+  .photo-wall { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .photo-caption { font-size: 0.7rem; }
+  /* 时间线 */
   .timeline-wrap::before { left: 14px; }
-  .tl-dot { left: 14px; }
+  .tl-dot { left: 14px; width: 16px; height: 16px; }
   .tl-item, .tl-item:nth-child(even) { flex-direction: row; }
-  .tl-card { width: calc(100% - 48px); margin-left: 48px; }
-  .vows-grid { grid-template-columns: 1fr; }
-  .detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .ribbon-title { font-size: 0.9rem; padding: 6px 24px; }
-  #section-nav { right: 8px; gap: 10px; }
-  #section-nav .nav-dot { width: 8px; height: 8px; }
-  .lightbox .lb-prev, .lightbox .lb-next { font-size: 1.8rem; padding: 8px; }
+  .tl-card { width: calc(100% - 42px); margin-left: 42px; padding: 12px 14px; }
+  .tl-card .tl-date { font-size: 0.7rem; }
+  .tl-card .tl-title { font-size: 0.9rem; }
+  .tl-card .tl-desc { font-size: 0.8rem; }
+  /* 誓言 */
+  .vows-grid { grid-template-columns: 1fr; gap: 14px; }
+  .vow-card { padding: 18px 14px; }
+  .vow-card .vow-text { font-size: 0.82rem; line-height: 1.7; }
+  /* 详情 */
+  .detail-row { flex-wrap: wrap; gap: 6px; }
+  .detail-label { font-size: 0.85rem; }
+  .detail-value { font-size: 0.85rem; }
+  .btn-copy, .btn-map { padding: 6px 16px; font-size: 0.8rem; }
+  /* 绸带 */
+  .ribbon-title { font-size: 0.85rem; padding: 6px 20px; letter-spacing: 4px; }
+  /* 导航点 */
+  #section-nav { right: 6px; gap: 8px; }
+  #section-nav .nav-dot { width: 7px; height: 7px; }
+  /* 灯箱 */
+  .lightbox .lb-prev, .lightbox .lb-next { font-size: 1.6rem; padding: 6px; }
+  .lightbox .lb-close { font-size: 1.8rem; top: 12px; right: 16px; }
+  .lightbox img { max-width: 95vw; max-height: 65vh; }
+  /* 邀请语 */
+  .invite-text { font-size: 0.9rem; line-height: 2.2; }
+  .invite-text em { font-size: 1.1em; }
+  /* 封面 */
+  .cover .shuangxi-big { font-size: clamp(4rem, 10vw, 7rem); }
+  .cover .names-row { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 4px; }
+  .cover .date-badge { font-size: 1rem; padding: 8px 24px; }
+  /* 祝福 */
+  .blessing-form input, .blessing-form textarea { font-size: 0.9rem; padding: 10px 14px; }
+  .btn-submit { padding: 12px 36px; font-size: 1rem; }
 }
 </style>
 </head>
@@ -914,7 +965,8 @@ main { position: relative; z-index: 2; }
             <span class="detail-icon">📍</span>
             <span class="detail-label">婚礼地点：</span>
             <span class="detail-value" id="venue-text">贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组</span>
-            <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制地址</button>
+            <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制</button>
+            <a class="btn-map" href="https://uri.amap.com/search?keyword=贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组" target="_blank" rel="noopener">🗺️ 导航</a>
           </div>
           <div class="detail-row">
             <span class="detail-icon">🍽️</span>
@@ -1282,18 +1334,43 @@ updateCountdown();
 // ==================== 复制地址 ====================
 function copyAddress() {
   const text = document.getElementById('venue-text').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('btn-copy-addr');
+  const btn = document.getElementById('btn-copy-addr');
+  const done = () => {
     btn.textContent = '已复制 ✓'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '复制地址'; btn.classList.remove('copied'); }, 2000);
-  }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text; document.body.appendChild(ta);
-    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    const btn = document.getElementById('btn-copy-addr');
-    btn.textContent = '已复制 ✓'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '复制地址'; btn.classList.remove('copied'); }, 2000);
-  });
+    setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+  };
+  // 优先用 Clipboard API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '-9999px';
+  ta.style.opacity = '0'; ta.style.fontSize = '16px'; // 16px 防止 iOS 缩放
+  document.body.appendChild(ta);
+  // iOS 需要 editable + range
+  ta.contentEditable = true;
+  ta.readOnly = false;
+  if (navigator.userAgent.match(/ipad|iphone/i)) {
+    const range = document.createRange();
+    range.selectNodeContents(ta);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    ta.setSelectionRange(0, 999999);
+  } else {
+    ta.select();
+    ta.setSelectionRange(0, 999999);
+  }
+  try {
+    document.execCommand('copy');
+  } catch(e) {}
+  document.body.removeChild(ta);
+  done();
 }
 
 // ==================== 祝福墙 ====================
