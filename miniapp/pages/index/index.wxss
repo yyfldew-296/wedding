@@ -102,9 +102,17 @@ page { background: #EFC8B2; color: #4a2c20; }
 .countdown-box {
   margin: 10rpx;
   background: #a85a3a; border: 2rpx solid #c9963a; border-radius: 24rpx;
-  padding: 28rpx 32rpx; min-width: 120rpx;
-  box-shadow: 0 12rpx 30rpx rgba(0,0,0,0.2);
+  padding: 32rpx 36rpx; min-width: 130rpx;
+  box-shadow: 0 12rpx 30rpx rgba(0,0,0,0.18);
+  animation: cdIn 0.5s ease backwards;
 }
+.countdown-box:nth-child(1) { animation-delay: 0.1s; }
+.countdown-box:nth-child(2) { animation-delay: 0.2s; }
+.countdown-box:nth-child(3) { animation-delay: 0.3s; }
+.countdown-box:nth-child(4) { animation-delay: 0.4s; }
+@keyframes cdIn { from { opacity: 0; transform: translateY(30rpx) scale(0.9); } }
+.cd-num { font-size: 56rpx; font-weight: bold; color: #faf0c8; display: block; }
+.cd-label { font-size: 24rpx; color: #c9963a; letter-spacing: 4rpx; margin-top: 8rpx; }
 .cd-num { font-size: 52rpx; font-weight: bold; color: #faf0c8; display: block; }
 .cd-label { font-size: 22rpx; color: #c9963a; letter-spacing: 4rpx; margin-top: 8rpx; }
 
