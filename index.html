@@ -1018,19 +1018,22 @@ main { position: relative; z-index: 2; }
 const WEDDING_DATE = new Date('2027-01-23T10:18:00');
 
 // ==================== 照片数据（替换为你和静静的日常照！） ====================
-// 💡 共9张日常照，按时间从早到晚排列
-//    路径相对于本 HTML 文件（同一目录下）
-//    如果顺序不对，调整一下数组顺序即可
+// 💡 共12张日常照，按时间从早到晚排列
+//    照片在 图片/ 文件夹下
+//    如果顺序或标题需要调整，改这个数组就行
 const PHOTOS = [
-  { src: '4fba51e137695e337a36310da5450551.jpg', caption: '2024年秋 · 初见', emoji: '📷' },
-  { src: '7c3f66a8b6e80e34875cc3c8789db569.jpg', caption: '在一起的那天', emoji: '🌹' },
-  { src: '25b259b4df67989cc0605d79738c7733.jpg', caption: '他的镜头里全是我', emoji: '💕' },
-  { src: '1873a97b303b494ac5cda9e8271dfe5e.jpg', caption: '他在深圳，每晚视频', emoji: '💻' },
-  { src: '2da6908161ac5e2c639a5328655d0fcb.jpg', caption: '周末约会', emoji: '💑' },
-  { src: '8421517abf31f03f1b1e7fc7a4779f2b.jpg', caption: '一起做饭的日常', emoji: '🍳' },
-  { src: '3fcb27e0b28c72233d97db1189e54051.jpg', caption: '他说"嫁给我"', emoji: '💍' },
-  { src: '8bbaa6d5008b71155dd93bc4265f0530.jpg', caption: '我们一起选车', emoji: '🚗' },
-  { src: '19ac50952d8baf901a2bbcb1c41ae1c7.jpg', caption: '在一起就很好', emoji: '💌' },
+  { src: '图片/微信图片_20260603110032_52_40.jpg', caption: '2024年秋 · 初见', emoji: '📷' },
+  { src: '图片/微信图片_20260603110034_53_40.png', caption: '在一起的那天', emoji: '🌹' },
+  { src: '图片/微信图片_20260603110037_54_40.png', caption: '他的镜头里全是我', emoji: '💕' },
+  { src: '图片/微信图片_20260603110040_55_40.png', caption: '他在深圳，每晚视频', emoji: '💻' },
+  { src: '图片/微信图片_20260603110042_56_40.png', caption: '周末约会', emoji: '💑' },
+  { src: '图片/微信图片_20260603110044_57_40.png', caption: '一起做饭的日常', emoji: '🍳' },
+  { src: '图片/微信图片_20260603110047_58_40.png', caption: '最幸福的一刻', emoji: '✨' },
+  { src: '图片/微信图片_20260603110049_59_40.png', caption: '他说"嫁给我"', emoji: '💍' },
+  { src: '图片/微信图片_20260603110054_61_40.png', caption: '我们一起选车', emoji: '🚗' },
+  { src: '图片/微信图片_20260603110055_62_40.jpg', caption: '甜蜜日常', emoji: '💝' },
+  { src: '图片/微信图片_20260603110058_63_40.png', caption: '在一起就很好', emoji: '💌' },
+  { src: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.png', caption: '我们的请柬', emoji: '🏮' },
 ];
 let currentPhotoIdx = 0;
 
