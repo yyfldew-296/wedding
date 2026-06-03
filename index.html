@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杨亦富 & 杨静静 | 婚礼请柬</title>
+<style>
+/* ================================================================
+   婚礼请柬 — 杨亦富 ❤ 杨静静 | 暖桃动画版
+   修改日期/地点: 搜索 WEDDING_DATE
+   替换照片: 搜索 PHOTOS
+   ================================================================ */
+:root {
+  --bg-deep: #a85a3a;
+  --rose: #c47a5a;
+  --rose-bright: #d4957a;
+  --rose-light: #e0a890;
+  --gold: #c9963a;
+  --gold-bright: #e8c860;
+  --gold-light: #faf0c8;
+  --card-rose: rgba(168,90,58,0.85);
+  --card-inner: rgba(255,245,238,0.95);
+  --text-dark: #4a2c20;
+  --text-mid: #6b3a2a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Serif SC', 'STSong', 'KaiTi', '楷体', serif;
+  background: #EFC8B2;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ===== 暖桃色渐变背景纹理 ===== */
+body::before {
+  content: '';
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 50% 0%, #f5d5c4 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, #e8b89a 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, #f0c8b0 0%, transparent 50%),
+    linear-gradient(180deg, #f8e0d4 0%, #EFC8B2 40%, #e8b898 100%);
+  z-index: 0; pointer-events: none;
+}
+
+/* ===== 灯笼容器 ===== */
+#lantern-layer {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+.lantern {
+  position: absolute;
+  display: flex; flex-direction: column;
+  align-items: center;
+  animation: lanternSway var(--sway-dur, 3s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+  transform-origin: top center;
+}
+.lantern .string {
+  width: 2px; height: 40px;
+  background: linear-gradient(180deg, transparent, var(--gold));
+}
+.lantern .body {
+  width: 50px; height: 60px;
+  background: linear-gradient(180deg, #d47060, #c45a4a 30%, #b84a3a 60%, #a04030);
+  border-radius: 50%;
+  box-shadow:
+    0 0 30px rgba(200,100,80,0.5),
+    0 0 60px rgba(200,90,70,0.25),
+    inset 0 0 20px rgba(255,200,80,0.2);
+  position: relative;
+}
+.lantern .body::before,
+.lantern .body::after {
+  content: '';
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 8px;
+  background: var(--gold);
+  border-radius: 3px;
+}
+.lantern .body::before { top: -4px; }
+.lantern .body::after { bottom: -4px; }
+.lantern .tassel {
+  width: 40px; height: 16px;
+  background: linear-gradient(180deg, var(--gold), #b8942e, transparent);
+  border-radius: 0 0 50% 50%;
+  margin-top: 2px;
+}
+.lantern .glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 10px rgba(255,220,100,0.8);
+  animation: lanternGlow 2s ease-in-out infinite;
+}
+@keyframes lanternSway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes lanternGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ===== 金粉粒子 ===== */
+#gold-canvas {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+/* ===== 主容器 ===== */
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+main { position: relative; z-index: 2; }
+
+/* ===== 区块 ===== */
+.section {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ===== 花瓣Canvas ===== */
+#petal-canvas {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1; pointer-events: none;
+}
+
+/* ===== 分区导航点 ===== */
+#section-nav {
+  position: fixed; right: 16px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex; flex-direction: column; gap: 14px;
+}
+#section-nav .nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(180,120,100,0.35);
+  cursor: pointer;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(180,120,100,0.3);
+}
+#section-nav .nav-dot.active {
+  background: var(--rose);
+  box-shadow: 0 0 12px rgba(180,100,70,0.6);
+  transform: scale(1.3);
+}
+#section-nav .nav-dot:hover {
+  background: var(--rose-bright);
+  transform: scale(1.2);
+}
+
+/* ===== 3D 卡片 ===== */
+.card-3d {
+  perspective: 1000px;
+  width: 100%; max-width: 620px;
+}
+.card-3d-inner {
+  background: var(--card-inner);
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+  padding: 44px 36px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.15),
+    0 0 40px rgba(180,100,70,0.15),
+    inset 0 0 30px rgba(200,150,50,0.05);
+  transition: transform 0.15s ease-out;
+  position: relative;
+  will-change: transform;
+  color: var(--text-dark);
+}
+.card-3d-inner::before {
+  content: '';
+  position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 2px solid rgba(180,100,70,0.25);
+  border-radius: 8px; pointer-events: none;
+}
+.card-3d-inner::after {
+  content: '囍';
+  position: absolute; top: -18px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: var(--gold);
+  background: linear-gradient(180deg, var(--bg-deep), #8b4030);
+  padding: 0 14px;
+  text-shadow: 0 0 12px rgba(200,160,60,0.6);
+  border-radius: 4px;
+  z-index: 2;
+}
+.card-3d-inner:hover {
+  box-shadow:
+    0 28px 70px rgba(0,0,0,0.2),
+    0 0 50px rgba(200,150,50,0.15);
+}
+
+/* ===== 章节标题 ===== */
+.section-title {
+  font-size: 1.8rem;
+  color: var(--bg-deep);
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+.ornament {
+  display: flex; align-items: center; gap: 14px;
+  color: var(--rose); font-size: 1rem; margin: 10px 0;
+}
+.ornament::before, .ornament::after {
+  content: ''; flex: 1; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rose), transparent);
+}
+
+/* ===== 绸带标题 ===== */
+.ribbon-title {
+  display: inline-block;
+  background: linear-gradient(180deg, var(--rose-bright), var(--bg-deep));
+  color: var(--gold-light);
+  padding: 8px 40px;
+  border-radius: 4px;
+  letter-spacing: 6px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 16px rgba(168,90,58,0.4);
+  position: relative;
+  margin-bottom: 24px;
+}
+.ribbon-title::before,
+.ribbon-title::after {
+  content: '';
+  position: absolute; top: 50%; transform: translateY(-50%);
+  border: 12px solid transparent;
+}
+.ribbon-title::before {
+  left: -24px;
+  border-right-color: var(--bg-deep);
+}
+.ribbon-title::after {
+  right: -24px;
+  border-left-color: var(--bg-deep);
+}
+
+/* ===== 1. 封面 ===== */
+.cover { position: relative; }
+.cover-deco {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 8px;
+}
+.cover-deco .knot {
+  width: 40px; height: 50px;
+  position: relative;
+}
+.cover-deco .knot::before {
+  content: '🏮';
+  font-size: 36px;
+  filter: drop-shadow(0 0 12px rgba(200,120,80,0.6));
+  animation: lanternSway 3s ease-in-out infinite;
+}
+.cover .shuangxi-big {
+  font-size: clamp(5rem, 11vw, 9rem);
+  background: linear-gradient(180deg, #f0d8a0 0%, #c9963a 30%, #b88030 60%, #8b5820 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(200,150,70,0.6)) drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  animation: xiShine 2s ease-in-out infinite;
+  line-height: 1;
+}
+@keyframes xiShine {
+  0%, 100% { filter: drop-shadow(0 0 30px rgba(200,150,70,0.6)) drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+  50% { filter: drop-shadow(0 0 60px rgba(220,180,100,0.9)) drop-shadow(0 0 90px rgba(200,120,70,0.5)) drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+}
+.cover .names-row {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  color: var(--text-dark);
+  letter-spacing: 8px;
+  margin: 16px 0;
+  text-shadow: 0 2px 8px rgba(168,90,58,0.2);
+}
+.cover .heart-beat {
+  display: inline-block;
+  animation: heartPop 1s ease-in-out infinite;
+  color: #d46050;
+  text-shadow: 0 0 20px rgba(200,100,80,0.6);
+}
+@keyframes heartPop {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.35); }
+  24% { transform: scale(1); }
+  36% { transform: scale(1.2); }
+  48% { transform: scale(1); }
+}
+.cover .date-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(168,90,58,0.85), rgba(130,60,35,0.9));
+  border: 2px solid var(--gold);
+  padding: 10px 32px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  color: var(--gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  margin-top: 10px;
+}
+.cover .scroll-tip {
+  position: absolute; bottom: 50px;
+  color: var(--rose);
+  font-size: 2rem;
+  animation: bounceTip 2s ease infinite;
+  cursor: pointer;
+  text-shadow: 0 0 15px rgba(180,100,70,0.4);
+}
+@keyframes bounceTip {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(16px); }
+  60% { transform: translateY(8px); }
+}
+
+/* ===== 2. 邀请语滚动 ===== */
+.invite-scroll {
+  background: linear-gradient(180deg, #fff8ed, #fffaf2 30%, #fff8ed);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 44px 36px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.12), inset 0 0 40px rgba(180,100,70,0.04);
+  overflow: hidden;
+  position: relative;
+  color: var(--text-dark);
+}
+.invite-scroll .scroll-top,
+.invite-scroll .scroll-bottom {
+  position: absolute; left: 10%; right: 10%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--rose), transparent);
+}
+.invite-scroll .scroll-top { top: 0; }
+.invite-scroll .scroll-bottom { bottom: 0; }
+.invite-text { font-size: 1.05rem; line-height: 2.4; letter-spacing: 2px; }
+.invite-text em { color: var(--bg-deep); font-weight: bold; font-style: normal; font-size: 1.25em; }
+.invite-text .poem {
+  display: block; color: var(--text-mid);
+  font-style: italic; margin: 14px 0; line-height: 2.2;
+}
+
+/* ===== 3. 倒计时 ===== */
+.countdown-grid {
+  display: flex; gap: 14px;
+  justify-content: center; flex-wrap: wrap;
+}
+.countdown-box {
+  background: linear-gradient(180deg, var(--bg-deep), #c47a5a 40%, #8b4030);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 18px 22px;
+  min-width: 78px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2), 0 0 20px rgba(180,100,70,0.25);
+  position: relative;
+}
+.countdown-box::after {
+  content: '';
+  position: absolute; top: 50%; left: 3px; right: 3px;
+  height: 1px; background: rgba(212,168,67,0.3);
+}
+.countdown-box .num {
+  font-size: 2.8rem; font-weight: bold;
+  background: linear-gradient(180deg, #faf0c8, #d4a843);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(240,200,60,0.6));
+  line-height: 1;
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+}
+.countdown-box .label {
+  font-size: 0.85rem; color: var(--gold);
+  margin-top: 8px; letter-spacing: 3px;
+}
+
+/* ===== 4. 照片墙 ===== */
+.photo-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  width: 100%; max-width: 600px;
+}
+.photo-frame {
+  background: #fff;
+  padding: 10px 10px 38px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  position: relative;
+}
+.photo-frame:nth-child(odd) { transform: rotate(-2deg); }
+.photo-frame:nth-child(even) { transform: rotate(1.5deg); }
+.photo-frame:hover {
+  transform: rotate(0deg) scale(1.08) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 30px rgba(180,100,70,0.25);
+  z-index: 10;
+}
+.photo-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #fef0e8, #fdf5ef, #fef8f2);
+  border-radius: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; color: #d4b0a0;
+}
+.photo-caption {
+  position: absolute; bottom: 8px; left: 10px; right: 10px;
+  text-align: center;
+  font-size: 0.75rem; color: #b88;
+  letter-spacing: 2px;
+}
+.photo-hint {
+  font-size: 0.85rem; color: #8b6914; margin-top: 16px; letter-spacing: 2px;
+}
+
+/* ===== 5. 时间线 ===== */
+.timeline-wrap { position: relative; padding: 16px 0; }
+.timeline-wrap::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, var(--rose), var(--rose), transparent);
+  transform: translateX(-50%);
+}
+.tl-item { display: flex; align-items: flex-start; margin: 28px 0; position: relative; }
+.tl-item:nth-child(odd) { flex-direction: row; }
+.tl-item:nth-child(even) { flex-direction: row-reverse; }
+.tl-dot {
+  position: absolute; left: 50%; top: 18px;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px rgba(200,150,70,0.7), 0 0 40px rgba(180,100,70,0.3);
+  z-index: 2;
+}
+.tl-dot.heart-dot {
+  background: #d46050;
+  box-shadow: 0 0 20px rgba(200,100,80,0.8);
+  animation: heartPop 1.5s ease-in-out infinite;
+}
+.tl-card {
+  width: calc(50% - 34px);
+  background: linear-gradient(135deg, #fffaf5, #fef5f0);
+  border: 2px solid #e8c8b8;
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: var(--text-dark);
+}
+.tl-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1), 0 0 20px rgba(180,100,70,0.12);
+}
+.tl-card .tl-date { font-size: 0.8rem; color: var(--rose); letter-spacing: 2px; margin-bottom: 4px; }
+.tl-card .tl-title { font-size: 1.05rem; color: var(--bg-deep); letter-spacing: 2px; margin-bottom: 4px; }
+.tl-card .tl-desc { font-size: 0.88rem; color: var(--text-dark); line-height: 1.7; }
+
+/* ===== 6. 婚礼详情 ===== */
+.detail-grid { display: grid; gap: 16px; width: 100%; text-align: left; }
+.detail-row {
+  display: flex; align-items: center;
+  gap: 12px; padding: 14px 0;
+  border-bottom: 1px dashed rgba(180,100,70,0.2);
+}
+.detail-row:last-child { border: none; }
+.detail-icon { font-size: 1.5rem; flex-shrink: 0; }
+.detail-label { color: var(--rose); white-space: nowrap; letter-spacing: 2px; font-weight: bold; }
+.detail-value { color: var(--text-dark); letter-spacing: 1px; }
+.btn-copy {
+  margin-left: 8px;
+  padding: 4px 14px;
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.btn-copy:hover { background: var(--bg-deep); }
+.btn-copy.copied { background: #2e7d32; }
+
+/* ===== 7. 誓言 ===== */
+.vows-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; width: 100%;
+}
+.vow-card {
+  background: linear-gradient(135deg, #fffaf6, #fef5f0);
+  border: 2px solid #e8c8b8;
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: var(--text-dark);
+}
+.vow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(168,90,58,0.15);
+}
+.vow-card .vow-label {
+  font-size: 0.8rem; color: var(--rose);
+  letter-spacing: 3px; margin-bottom: 8px;
+}
+.vow-card .vow-name {
+  font-size: 1.3rem; color: var(--bg-deep);
+  letter-spacing: 3px; margin-bottom: 12px;
+}
+.vow-card .vow-text {
+  font-size: 0.9rem; color: var(--text-dark);
+  line-height: 1.8; font-style: italic;
+}
+
+/* ===== 8. 祝福墙 ===== */
+.blessing-form {
+  display: flex; flex-direction: column;
+  gap: 12px; width: 100%; max-width: 420px;
+}
+.blessing-form input, .blessing-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e8c8b8;
+  border-radius: 10px;
+  font-family: inherit; font-size: 1rem;
+  background: rgba(255,255,255,0.7);
+  color: var(--text-dark);
+  letter-spacing: 1px; outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.blessing-form input:focus, .blessing-form textarea:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 16px rgba(180,100,70,0.25);
+}
+.blessing-form textarea { min-height: 80px; resize: vertical; }
+.btn-submit {
+  padding: 14px 48px;
+  background: linear-gradient(135deg, var(--rose-bright), var(--bg-deep));
+  color: var(--gold-light);
+  border: 2px solid var(--gold);
+  border-radius: 50px;
+  font-size: 1.1rem; font-family: inherit;
+  letter-spacing: 4px; cursor: pointer;
+  transition: all 0.3s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.btn-submit:hover {
+  background: linear-gradient(135deg, var(--bg-deep), #7a3520);
+  box-shadow: 0 8px 28px rgba(168,90,58,0.5);
+  transform: translateY(-3px);
+}
+.blessing-list {
+  width: 100%; max-width: 520px;
+  margin-top: 24px; text-align: left;
+}
+.blessing-item {
+  background: linear-gradient(135deg, #fffaf6, #fef8f2);
+  border: 1px solid #e8c8b8;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  animation: slideIn 0.5s ease;
+  transition: transform 0.3s;
+  color: var(--text-dark);
+}
+.blessing-item:hover { transform: translateX(4px); }
+.blessing-item .b-name { color: var(--bg-deep); font-weight: bold; letter-spacing: 2px; margin-bottom: 4px; }
+.blessing-item .b-msg { color: var(--text-dark); line-height: 1.7; }
+.blessing-item .b-time { font-size: 0.75rem; color: var(--rose); text-align: right; margin-top: 6px; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== 底部 ===== */
+.footer {
+  text-align: center; padding: 40px 20px 60px;
+}
+.footer .end-xi {
+  font-size: 3rem;
+  background: linear-gradient(180deg, #d4a070, #b87040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(180,120,80,0.4));
+  margin-bottom: 8px;
+}
+.footer .names-sm { font-size: 1.1rem; letter-spacing: 6px; color: var(--text-dark); }
+.footer .motto { font-size: 0.85rem; margin-top: 8px; color: var(--text-mid); opacity: 0.85; }
+
+/* ===== 点击爱心 ===== */
+.click-burst {
+  position: fixed; pointer-events: none; z-index: 100;
+  font-size: 22px;
+  animation: burstOut 0.7s ease-out forwards;
+}
+@keyframes burstOut {
+  0% { transform: scale(1) translate(0,0); opacity: 1; }
+  100% { transform: scale(0) translate(var(--dx), var(--dy)); opacity: 0; }
+}
+
+/* ===== 渐显 ===== */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== 照片画廊灯箱 ===== */
+.lightbox {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox img {
+  max-width: 90vw; max-height: 75vh;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transform: scale(0.9);
+  transition: transform 0.4s ease;
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox .lb-caption {
+  color: #faf0c8; font-size: 1rem;
+  letter-spacing: 2px; margin-top: 16px;
+  text-align: center;
+}
+.lightbox .lb-close {
+  position: absolute; top: 20px; right: 28px;
+  font-size: 2.2rem; color: #faf0c8;
+  cursor: pointer; z-index: 1001;
+  transition: transform 0.3s;
+  background: none; border: none;
+  font-family: inherit;
+}
+.lightbox .lb-close:hover { transform: rotate(90deg); }
+.lightbox .lb-prev, .lightbox .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-size: 2.5rem; color: rgba(255,255,255,0.7);
+  cursor: pointer; background: none; border: none;
+  padding: 16px; transition: color 0.3s;
+  font-family: inherit;
+}
+.lightbox .lb-prev:hover, .lightbox .lb-next:hover { color: #fff; }
+.lightbox .lb-prev { left: 10px; }
+.lightbox .lb-next { right: 10px; }
+.lightbox .lb-counter {
+  position: absolute; bottom: 60px;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem; letter-spacing: 3px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 600px) {
+  .card-3d-inner { padding: 30px 18px; }
+  .invite-scroll { padding: 28px 18px; }
+  .countdown-box { min-width: 56px; padding: 14px 10px; }
+  .countdown-box .num { font-size: 2rem; }
+  .photo-wall { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .timeline-wrap::before { left: 14px; }
+  .tl-dot { left: 14px; }
+  .tl-item, .tl-item:nth-child(even) { flex-direction: row; }
+  .tl-card { width: calc(100% - 48px); margin-left: 48px; }
+  .vows-grid { grid-template-columns: 1fr; }
+  .detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .ribbon-title { font-size: 0.9rem; padding: 6px 24px; }
+  #section-nav { right: 8px; gap: 10px; }
+  #section-nav .nav-dot { width: 8px; height: 8px; }
+  .lightbox .lb-prev, .lightbox .lb-next { font-size: 1.8rem; padding: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 灯笼 -->
+<div id="lantern-layer"></div>
+
+<!-- 金粉Canvas -->
+<canvas id="gold-canvas"></canvas>
+
+<!-- 花瓣Canvas -->
+<canvas id="petal-canvas"></canvas>
+
+<!-- 分区导航 -->
+<nav id="section-nav"></nav>
+
+<main>
+  <!-- ===== 1. 封面 ===== -->
+  <section class="section cover">
+    <div class="cover-deco reveal">
+      <span class="knot"></span>
+      <span class="knot" style="animation-delay:0.5s;"></span>
+    </div>
+    <div class="shuangxi-big reveal">囍</div>
+    <div class="names-row reveal">
+      杨亦富 <span class="heart-beat">❤</span> 杨静静
+    </div>
+    <div class="ornament reveal" style="color:var(--gold-bright); width:240px;">❦</div>
+    <div class="date-badge reveal">2027年1月23日 · 腊月十六</div>
+    <p class="reveal" style="color:var(--text-mid); letter-spacing:3px; margin-top:12px; font-size:0.95rem;">从深圳到铜仁，从相遇到白头</p>
+    <div class="scroll-tip reveal">⌄</div>
+  </section>
+
+  <!-- ===== 2. 邀请语 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-invite">
+      <div class="card-3d-inner invite-scroll">
+        <div class="section-title">喜 邀 您</div>
+        <div class="ornament">❦</div>
+        <div class="invite-text">
+          <p style="font-size:1.1rem; color:var(--bg-deep); letter-spacing:3px;">我们要结婚啦</p>
+          <p style="margin-top:12px;">新郎 <em>杨亦富</em> · 新娘 <em>杨静静</em></p>
+          <p>敬邀您参加我们的婚礼</p>
+          <span class="poem">
+            2024年秋，我们相遇<br>
+            2027年冬，我们成家<br>
+            两年多的日子里<br>
+            他在深圳写代码，她在家里默默成长<br>
+            隔着千里，每一天都在靠近彼此
+          </span>
+          <p style="margin-top:10px;"><em>2027年1月23日</em></p>
+          <p style="font-size:0.85rem; color:#8b6914;">农历腊月十六 · 星期六</p>
+          <p style="margin-top:14px;">贵州省铜仁市松桃县乌罗镇</p>
+          <p style="font-size:0.9rem;">恭候您的到来，见证我们的幸福</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. 倒计时 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-countdown">
+      <div class="card-3d-inner">
+        <div class="section-title">婚 礼 倒 计 时</div>
+        <div class="ornament">❦</div>
+        <div class="section-subtitle">每一天，都在靠近我们的家</div>
+        <div class="countdown-grid">
+          <div class="countdown-box"><div class="num" id="cd-days">00</div><div class="label">天</div></div>
+          <div class="countdown-box"><div class="num" id="cd-hours">00</div><div class="label">时</div></div>
+          <div class="countdown-box"><div class="num" id="cd-mins">00</div><div class="label">分</div></div>
+          <div class="countdown-box"><div class="num" id="cd-secs">00</div><div class="label">秒</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. 照片墙 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-photos">
+      <div class="card-3d-inner">
+        <div class="ribbon-title">💑 我们的日常</div>
+        <div class="photo-wall" id="photo-wall">
+          <!-- 照片通过JS动态加载，把你和静静的日常照放进来 -->
+        </div>
+        <p class="photo-hint">📸 点击照片看大图 · 把你和静静的日常照发给我，替换这些占位图</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. 爱情故事时间线 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-timeline">
+      <div class="card-3d-inner" style="max-width:650px;">
+        <div class="section-title">爱 的 旅 程</div>
+        <div class="ornament">❦</div>
+        <div class="timeline-wrap">
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2024年10月4日 · 18:12</div>
+              <div class="tl-title">💫 命运相遇</div>
+              <div class="tl-desc">茫茫人海中，我们遇见了彼此。那一刻的怦然心动，是此生最美的意外。</div>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot heart-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2024年11月25日 · 18:49</div>
+              <div class="tl-title">💕 甜蜜相恋</div>
+              <div class="tl-desc">牵起彼此的手，许下相守的诺言。从这一天起，心有所属，爱有所归。</div>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2025年 · 相隔千里的每一天</div>
+              <div class="tl-title">💻☎️ 他在深圳，她在心里</div>
+              <div class="tl-desc">他在深圳写代码，她在老家默默成长。每晚的视频通话、每一条"早安"和"晚安"，把一千公里的距离变成零。</div>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot heart-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2026年</div>
+              <div class="tl-title">💍 开始筹备我们的未来</div>
+              <div class="tl-desc">选车、规划路线、设计婚礼——每一件小事都在说同一句话："我们准备好了。"</div>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2026年12月</div>
+              <div class="tl-title">🚗 第一辆属于我们的车</div>
+              <div class="tl-desc">一辆属于我们两个人的SUV。它不只是车——是我们在路上的小家，是想走就走的自由。</div>
+            </div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dot heart-dot"></div>
+            <div class="tl-card">
+              <div class="tl-date">2027年1月23日</div>
+              <div class="tl-title">💒 步入婚姻</div>
+              <div class="tl-desc">在家人和朋友的见证下，在生养我们的贵州山里，我们成为彼此生命中最重要的人。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. 甜蜜誓言 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-vows">
+      <div class="card-3d-inner">
+        <div class="section-title">我 们 的 誓 言</div>
+        <div class="ornament">❦</div>
+        <div class="vows-grid">
+          <div class="vow-card">
+            <div class="vow-label">🤵 新郎</div>
+            <div class="vow-name">杨亦富</div>
+            <div class="vow-text">
+              静静<br><br>
+              我是一个写代码的人<br>
+              不擅长说漂亮话<br>
+              但我把我们的每一天都记得很精确<br>
+              2024年10月4日 18:12，遇见你<br>
+              2024年11月25日 18:49，爱上你<br><br>
+              我在深圳加班到深夜的时候<br>
+              想到你在等我，就觉得一切都值得<br>
+              我买那辆SUV，是因为答应过你<br>
+              要开着车带你去看整个中国<br><br>
+              我没什么大本事<br>
+              但我会用一辈子，写一段只属于我们的程序<br>
+              它只有一个功能——<br>
+              让你每天都比昨天更幸福一点点
+            </div>
+          </div>
+          <div class="vow-card">
+            <div class="vow-label">👰 新娘</div>
+            <div class="vow-name">杨静静</div>
+            <div class="vow-text">
+              亦富<br><br>
+              谢谢你出现在我的生命里<br>
+              你总说自己不浪漫<br>
+              可你会记住我们相遇的每一分钟<br>
+              会在加班后给我打视频<br>
+              会默默存钱，计划着带我走遍全国<br><br>
+              你说你是程序员，没什么大本事<br>
+              但在我心里，你是最厉害的人<br>
+              因为你把我规划进了你的每一个未来<br><br>
+              从今天起<br>
+              你在哪，家就在哪<br>
+              不管是深圳的出租屋，还是路上的SUV<br>
+              有你的地方，就是我的家
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7. 婚礼详情 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-details">
+      <div class="card-3d-inner">
+        <div class="section-title">婚 礼 信 息</div>
+        <div class="ornament">❦</div>
+        <div class="detail-grid">
+          <div class="detail-row">
+            <span class="detail-icon">📅</span>
+            <span class="detail-label">婚礼日期：</span>
+            <span class="detail-value">2027年1月23日（周六）· 农历腊月十六</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon">⏰</span>
+            <span class="detail-label">仪式时间：</span>
+            <span class="detail-value">上午 10:18</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon">📍</span>
+            <span class="detail-label">婚礼地点：</span>
+            <span class="detail-value" id="venue-text">贵州省铜仁市松桃县乌罗镇丰勇村杨里掌组</span>
+            <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制地址</button>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon">🍽️</span>
+            <span class="detail-label">婚宴时间：</span>
+            <span class="detail-value">中午 12:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. 祝福墙 ===== -->
+  <section class="section">
+    <div class="card-3d reveal" id="card-blessing">
+      <div class="card-3d-inner">
+        <div class="section-title">祝 福 墙</div>
+        <div class="ornament">❦</div>
+        <div class="section-subtitle">您的每一句祝福，都是我们最珍贵的礼物</div>
+        <div class="blessing-form">
+          <input type="text" id="b-name" placeholder="您的名字" maxlength="20">
+          <textarea id="b-msg" placeholder="想对我们说的话……" maxlength="200"></textarea>
+          <button class="btn-submit" onclick="submitBlessing()">💝 送 出 祝 福</button>
+        </div>
+        <div class="blessing-list" id="blessing-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="end-xi">囍</div>
+    <p class="names-sm">杨亦富 ❤ 杨静静</p>
+    <p class="motto">2024.10.04 相遇 · 2024.11.25 相爱 · 2027.01.23 成家</p>
+    <p class="motto" style="font-size:0.8rem; margin-top:4px; opacity:0.7;">两个人 · 一辈子</p>
+  </div>
+</main>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev" onclick="navLightbox(-1)">‹</button>
+  <button class="lb-next" onclick="navLightbox(1)">›</button>
+  <img src="" alt="" id="lb-img">
+  <p class="lb-caption" id="lb-caption"></p>
+  <span class="lb-counter" id="lb-counter"></span>
+</div>
+
+<script>
+// ==================== 核心配置 ====================
+const WEDDING_DATE = new Date('2027-01-23T10:18:00');
+
+// ==================== 照片数据（替换为你和静静的日常照！） ====================
+// 💡 共9张日常照，按时间从早到晚排列
+//    路径相对于本 HTML 文件（同一目录下）
+//    如果顺序不对，调整一下数组顺序即可
+const PHOTOS = [
+  { src: '4fba51e137695e337a36310da5450551.jpg', caption: '2024年秋 · 初见', emoji: '📷' },
+  { src: '7c3f66a8b6e80e34875cc3c8789db569.jpg', caption: '在一起的那天', emoji: '🌹' },
+  { src: '25b259b4df67989cc0605d79738c7733.jpg', caption: '他的镜头里全是我', emoji: '💕' },
+  { src: '1873a97b303b494ac5cda9e8271dfe5e.jpg', caption: '他在深圳，每晚视频', emoji: '💻' },
+  { src: '2da6908161ac5e2c639a5328655d0fcb.jpg', caption: '周末约会', emoji: '💑' },
+  { src: '8421517abf31f03f1b1e7fc7a4779f2b.jpg', caption: '一起做饭的日常', emoji: '🍳' },
+  { src: '3fcb27e0b28c72233d97db1189e54051.jpg', caption: '他说"嫁给我"', emoji: '💍' },
+  { src: '8bbaa6d5008b71155dd93bc4265f0530.jpg', caption: '我们一起选车', emoji: '🚗' },
+  { src: '19ac50952d8baf901a2bbcb1c41ae1c7.jpg', caption: '在一起就很好', emoji: '💌' },
+];
+let currentPhotoIdx = 0;
+
+// ==================== 滚动渐显（必须在 renderPhotoWall 之前） ====================
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+// ==================== 渲染照片墙 ====================
+function renderPhotoWall() {
+  const wall = document.getElementById('photo-wall');
+  wall.innerHTML = PHOTOS.map((p, i) => `
+    <div class="photo-frame reveal" onclick="openLightbox(${i})">
+      ${p.src
+        ? `<img src="${p.src}" alt="${p.caption}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:1px;" loading="lazy">`
+        : `<div class="photo-placeholder">${p.emoji}</div>`
+      }
+      <div class="photo-caption">${p.caption}</div>
+    </div>
+  `).join('');
+  // 重新注册新元素的渐显
+  document.querySelectorAll('#photo-wall .reveal').forEach(el => revealObserver.observe(el));
+}
+renderPhotoWall();
+
+// ==================== 灯箱 ====================
+function openLightbox(idx) {
+  if (!PHOTOS[idx].src) return; // 没图不打开
+  currentPhotoIdx = idx;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navLightbox(dir) {
+  let next = currentPhotoIdx + dir;
+  // 跳过没图的
+  while (next >= 0 && next < PHOTOS.length && !PHOTOS[next].src) next += dir;
+  if (next < 0 || next >= PHOTOS.length) return;
+  currentPhotoIdx = next;
+  updateLightbox();
+}
+function updateLightbox() {
+  const p = PHOTOS[currentPhotoIdx];
+  document.getElementById('lb-img').src = p.src;
+  document.getElementById('lb-caption').textContent = p.caption;
+  document.getElementById('lb-counter').textContent = `${currentPhotoIdx + 1} / ${PHOTOS.length}`;
+}
+// 键盘控制
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+// 点击遮罩关闭
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// ==================== 飘落花瓣 ====================
+const petalCanvas = document.getElementById('petal-canvas');
+const petalCtx = petalCanvas.getContext('2d');
+function resizePetal() {
+  petalCanvas.width = window.innerWidth;
+  petalCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizePetal);
+resizePetal();
+
+class Petal {
+  constructor() {
+    this.reset(true);
+  }
+  reset(initial) {
+    this.x = Math.random() * petalCanvas.width;
+    this.y = initial ? Math.random() * petalCanvas.height : -20;
+    this.size = Math.random() * 14 + 6;
+    this.vx = (Math.random() - 0.5) * 1.2;
+    this.vy = Math.random() * 1.5 + 0.6;
+    this.rotation = Math.random() * 360;
+    this.rv = (Math.random() - 0.5) * 2.5;
+    this.opacity = Math.random() * 0.5 + 0.2;
+    // 桃色到粉色
+    const colors = ['#f8d8c8','#f0c8b8','#f5d0c0','#ecc4b0','#fadcd0','#f2c4b4','#fde8dc','#eebaaa'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update() {
+    this.x += this.vx + Math.sin(this.y * 0.02) * 0.4;
+    this.y += this.vy;
+    this.rotation += this.rv;
+    if (this.y > petalCanvas.height + 30 || this.x < -30 || this.x > petalCanvas.width + 30) {
+      this.reset(false);
+    }
+  }
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate((this.rotation * Math.PI) / 180);
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = this.color;
+    // 画花瓣形状
+    ctx.beginPath();
+    const s = this.size;
+    ctx.ellipse(0, 0, s, s * 0.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(-s * 0.2, -s * 0.1, s * 0.3, s * 0.2, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+const petals = Array.from({length: 45}, () => new Petal());
+function animatePetals() {
+  petalCtx.clearRect(0, 0, petalCanvas.width, petalCanvas.height);
+  petals.forEach(p => { p.update(); p.draw(petalCtx); });
+  requestAnimationFrame(animatePetals);
+}
+animatePetals();
+
+// ==================== 分区导航点 ====================
+function buildSectionNav() {
+  const sections = document.querySelectorAll('.section');
+  const nav = document.getElementById('section-nav');
+  sections.forEach((sec, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'nav-dot';
+    dot.title = `第${i + 1}幕`;
+    dot.addEventListener('click', () => {
+      sec.scrollIntoView({ behavior: 'smooth' });
+    });
+    nav.appendChild(dot);
+  });
+  updateActiveDot();
+}
+buildSectionNav();
+
+function updateActiveDot() {
+  const sections = document.querySelectorAll('.section');
+  const dots = document.querySelectorAll('#section-nav .nav-dot');
+  let activeIdx = 0;
+  const viewMid = window.innerHeight / 2;
+  sections.forEach((sec, i) => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < viewMid && rect.bottom > viewMid) activeIdx = i;
+  });
+  dots.forEach((d, i) => {
+    d.classList.toggle('active', i === activeIdx);
+  });
+}
+window.addEventListener('scroll', updateActiveDot, { passive: true });
+
+// ==================== 增强渐显：子元素依次出现 ====================
+document.querySelectorAll('.reveal').forEach(el => {
+  // 如果子元素也都有 reveal，则给它们加延迟
+  const children = el.querySelectorAll('.reveal');
+  if (children.length > 0) {
+    children.forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.08}s`;
+    });
+  }
+});
+
+// ==================== 红灯笼渲染 ====================
+const lanternLayer = document.getElementById('lantern-layer');
+const lanternCount = 12;
+for (let i = 0; i < lanternCount; i++) {
+  const lantern = document.createElement('div');
+  lantern.className = 'lantern';
+  lantern.style.cssText = `
+    left: ${(i / lanternCount) * 90 + 5}%;
+    top: -8px;
+    --sway-dur: ${Math.random() * 2 + 2.5}s;
+    --sway-delay: ${Math.random() * 2}s;
+  `;
+  lantern.innerHTML = `
+    <div class="string"></div>
+    <div class="body"><div class="glow">福</div></div>
+    <div class="tassel"></div>
+  `;
+  lanternLayer.appendChild(lantern);
+}
+
+// ==================== 金粉粒子 ====================
+const goldCanvas = document.getElementById('gold-canvas');
+const goldCtx = goldCanvas.getContext('2d');
+function resizeGold() {
+  goldCanvas.width = window.innerWidth;
+  goldCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeGold);
+resizeGold();
+
+class GoldParticle {
+  constructor() {
+    this.x = Math.random() * goldCanvas.width;
+    this.y = Math.random() * goldCanvas.height;
+    this.size = Math.random() * 2.5 + 0.5;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4 - 0.3;
+    this.opacity = Math.random() * 0.6 + 0.2;
+    this.twinkle = Math.random() * Math.PI * 2;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.003; // slight upward float
+    this.twinkle += 0.03;
+    if (this.y < -10 || this.y > goldCanvas.height + 10 ||
+        this.x < -10 || this.x > goldCanvas.width + 10) {
+      this.x = Math.random() * goldCanvas.width;
+      this.y = goldCanvas.height + 10;
+      this.vy = -(Math.random() * 1.2 + 0.3);
+    }
+  }
+  draw(ctx) {
+    const alpha = this.opacity * (Math.sin(this.twinkle) * 0.3 + 0.7);
+    ctx.fillStyle = `rgba(255,220,120,${alpha})`;
+    ctx.shadowColor = `rgba(255,200,80,${alpha * 0.6})`;
+    ctx.shadowBlur = this.size * 4;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+const goldParticles = Array.from({length: 80}, () => new GoldParticle());
+function animateGold() {
+  goldCtx.clearRect(0, 0, goldCanvas.width, goldCanvas.height);
+  goldParticles.forEach(p => { p.update(); p.draw(goldCtx); });
+  requestAnimationFrame(animateGold);
+}
+animateGold();
+
+// ==================== 3D 卡片倾斜 ====================
+document.querySelectorAll('.card-3d-inner').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rx = ((y - rect.height/2) / (rect.height/2)) * -8;
+    const ry = ((x - rect.width/2) / (rect.width/2)) * 8;
+    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+});
+
+// ==================== 点击喜庆粒子 ====================
+document.addEventListener('click', e => {
+  const items = ['❤️', '🧧', '🏮', '✨', '💕', '🎉', '💖', '🌸', '🎊', '💝'];
+  for (let i = 0; i < 8; i++) {
+    const el = document.createElement('span');
+    el.className = 'click-burst';
+    el.textContent = items[Math.floor(Math.random() * items.length)];
+    el.style.left = e.clientX + 'px';
+    el.style.top = e.clientY + 'px';
+    el.style.setProperty('--dx', `${(Math.random()-0.5)*100}px`);
+    el.style.setProperty('--dy', `${(Math.random()-0.5)*100 - 50}px`);
+    el.style.animationDuration = (Math.random() * 0.5 + 0.6) + 's';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+});
+
+// ==================== 注册渐显观察 ====================
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ==================== 倒计时 ====================
+function updateCountdown() {
+  const now = new Date();
+  const diff = WEDDING_DATE - now;
+  if (diff <= 0) {
+    ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+      document.getElementById(id).textContent = '00';
+    });
+    return;
+  }
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ==================== 复制地址 ====================
+function copyAddress() {
+  const text = document.getElementById('venue-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy-addr');
+    btn.textContent = '已复制 ✓'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '复制地址'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    const btn = document.getElementById('btn-copy-addr');
+    btn.textContent = '已复制 ✓'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '复制地址'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ==================== 祝福墙 ====================
+function submitBlessing() {
+  const nameEl = document.getElementById('b-name');
+  const msgEl = document.getElementById('b-msg');
+  const name = nameEl.value.trim();
+  const msg = msgEl.value.trim();
+  if (!name || !msg) {
+    const emptyEl = !name ? nameEl : msgEl;
+    emptyEl.style.borderColor = '#c47a5a';
+    setTimeout(() => { emptyEl.style.borderColor = ''; }, 1500);
+    return;
+  }
+  addBlessing(name, msg);
+  nameEl.value = ''; msgEl.value = '';
+}
+
+function addBlessing(name, msg) {
+  const list = document.getElementById('blessing-list');
+  const now = new Date();
+  const time = `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const item = document.createElement('div');
+  item.className = 'blessing-item';
+  item.innerHTML = `
+    <div class="b-name">🧧 ${escapeHtml(name)}</div>
+    <div class="b-msg">${escapeHtml(msg)}</div>
+    <div class="b-time">${time}</div>
+  `;
+  list.prepend(item);
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+addBlessing('妈妈', '亦富、静静，看着你们走到今天，妈妈心里高兴。以后的日子，两个人好好的。');
+addBlessing('爸爸', '儿子，成家了就是大人了。对静静好一点，好好过日子。');
+addBlessing('深圳的同事阿杰', '老杨终于结婚了！从代码到婚礼，一路看着你们走过来。祝你们新婚快乐，幸福美满！');
+addBlessing('静静的闺蜜', '静静要幸福！你找到了一个把你写进代码里的男人——这比任何情书都浪漫 💕');
+</script>
+</body>
+</html>
