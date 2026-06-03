@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "杨亦富 ❤ 杨静静",
+    "navigationBarBackgroundColor": "#c47a5a",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#EFC8B2"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

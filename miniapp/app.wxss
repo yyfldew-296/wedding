@@ -1,0 +1,14 @@
+page {
+  --bg-deep: #a85a3a;
+  --rose: #c47a5a;
+  --rose-bright: #d4957a;
+  --gold: #c9963a;
+  --gold-bright: #e8c860;
+  --gold-light: #faf0c8;
+  --text-dark: #4a2c20;
+  --text-mid: #6b3a2a;
+  background: #EFC8B2;
+  font-family: -apple-system, 'Noto Serif SC', 'STSong', serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
