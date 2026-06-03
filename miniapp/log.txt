@@ -1,0 +1,104 @@
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.wxml
+编译 pages/index/index.wxml
+pages/index/index.wxml
+pages/index/index.wxml
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
+pages/index/index.wxss
+pages/index/index.wxss
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.js
+编译 pages/index/index.js
+pages/index/index.js
+pages/index/index.js
+编译 app.json
+app.json: 在项目根目录未找到 app.json 
+getDevCodeByFileList-miniProgram
+code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
+File: app.json
+编译 app.json
+app.json: 在项目根目录未找到 app.json 
+code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
+File: app.json
+编译 app.json
+app.json: 在项目根目录未找到 app.json 
+code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
+File: app.json
+编译 app.json
+app.json: 在项目根目录未找到 app.json 
+code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
+File: app.json
+编译 app.json
+app.json: 在项目根目录未找到 app.json 
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 app.wxss
+编译 app.wxss
+app.wxss
+app.wxss
+getDevCodeByFileList-miniProgram
+getDevCodeByFileList-miniProgram
+编译 app.js
+编译 app.js
+app.js
+app.js
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
+pages/index/index.wxss
+pages/index/index.wxss
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
+pages/index/index.wxss
+pages/index/index.wxss
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+getDevCodeByFileList-miniProgram
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
+pages/index/index.wxss
+pages/index/index.wxss
