@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>杨亦富 ❤ 杨静静 | 婚礼请柬</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <meta name="description" content="2027年1月23日（腊月十六），杨亦富与杨静静将在贵州铜仁松桃举行婚礼，诚邀您的见证。">
 <meta name="keywords" content="婚礼请柬,杨亦富,杨静静,结婚,贵州,铜仁">
 <!-- Open Graph（微信/QQ/Facebook 分享预览） -->
@@ -544,6 +546,9 @@ main { position: relative; z-index: 2; }
   transition: all 0.3s;
 }
 .btn-map-nav:hover { background: var(--bg-deep); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(168,90,58,0.4); }
+/* Leaflet 弹窗样式 */
+.leaflet-popup-content { font-family: inherit; color: var(--text-dark); text-align: center; font-size: 0.9rem; }
+.leaflet-popup-content b { color: var(--bg-deep); }
 
 /* ===== 7. 誓言 ===== */
 .vows-grid {
@@ -1016,12 +1021,7 @@ main { position: relative; z-index: 2; }
         <div class="ornament">❦</div>
         <div class="section-subtitle">贵州省铜仁市松桃县乌罗镇杨立掌</div>
         <div class="map-container">
-          <iframe class="map-frame"
-            src="https://uri.amap.com/marker?position=108.95,28.05&name=杨亦富&杨静静婚礼·杨立掌&callnative=0"
-            allow="geolocation"
-            loading="lazy"
-            title="婚礼地点地图">
-          </iframe>
+          <div id="wedding-map" class="map-frame"></div>
           <div class="map-buttons">
             <button class="btn-map-nav" onclick="openMapApp('amap')">📱 高德地图导航</button>
             <button class="btn-map-nav" onclick="openMapApp('tencent')">📱 腾讯地图导航</button>
@@ -1484,6 +1484,33 @@ addBlessing('妈妈', '亦富、静静，看着你们走到今天，妈妈心里
 addBlessing('爸爸', '儿子，成家了就是大人了。对静静好一点，好好过日子。');
 addBlessing('深圳的同事阿杰', '老杨终于结婚了！从代码到婚礼，一路看着你们走过来。祝你们新婚快乐，幸福美满！');
 addBlessing('静静的闺蜜', '静静要幸福！你找到了一个把你写进代码里的男人——这比任何情书都浪漫 💕');
+
+// ==================== Leaflet 地图 ====================
+(function initMap() {
+  const mapEl = document.getElementById('wedding-map');
+  if (!mapEl) return;
+  // 贵州省铜仁市松桃县乌罗镇杨立掌
+  const lat = 28.05, lng = 108.95;
+  const map = L.map(mapEl, {
+    center: [lat, lng],
+    zoom: 14,
+    zoomControl: true,
+    attributionControl: false,
+  });
+  // OpenStreetMap 瓦片
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+  }).addTo(map);
+  // 自定义图标
+  const icon = L.divIcon({
+    className: 'map-marker',
+    html: '<div style="background:#c45a4a;color:#fff;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(180,90,50,0.5);"><span style="transform:rotate(45deg);font-size:18px;">📍</span></div>',
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+  });
+  L.marker([lat, lng], { icon }).addTo(map)
+    .bindPopup('<b>💒 杨亦富 & 杨静静</b><br>婚礼地点 · 杨立掌').openPopup();
+})();
 </script>
 </body>
 </html>
