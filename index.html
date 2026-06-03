@@ -1020,21 +1020,20 @@ main { position: relative; z-index: 2; }
 const WEDDING_DATE = new Date('2027-01-23T10:18:00');
 
 // ==================== 照片数据（替换为你和静静的日常照！） ====================
-// 💡 共12张日常照，按时间从早到晚排列
-//    如果顺序或标题需要调整，改这个数组就行
+// 💡 共12张日常照，WebP优先（体积小50%），JPG兜底
 const PHOTOS = [
-  { src: '图片/微信图片_20260603110032_52_40.jpg', caption: '2024年秋 · 初见' },
-  { src: '图片/微信图片_20260603110034_53_40.jpg', caption: '在一起的那天' },
-  { src: '图片/微信图片_20260603110037_54_40.jpg', caption: '他的镜头里全是我' },
-  { src: '图片/微信图片_20260603110040_55_40.jpg', caption: '他在深圳，每晚视频' },
-  { src: '图片/微信图片_20260603110042_56_40.jpg', caption: '周末约会' },
-  { src: '图片/微信图片_20260603110044_57_40.jpg', caption: '一起做饭的日常' },
-  { src: '图片/微信图片_20260603110047_58_40.jpg', caption: '最幸福的一刻' },
-  { src: '图片/微信图片_20260603110049_59_40.jpg', caption: '他说"嫁给我"' },
-  { src: '图片/微信图片_20260603110054_61_40.jpg', caption: '我们一起选车' },
-  { src: '图片/微信图片_20260603110055_62_40.jpg', caption: '甜蜜日常' },
-  { src: '图片/微信图片_20260603110058_63_40.jpg', caption: '在一起就很好' },
-  { src: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.jpg', caption: '我们的请柬' },
+  { webp: '图片/微信图片_20260603110032_52_40.webp', jpg: '图片/微信图片_20260603110032_52_40.jpg', caption: '2024年秋 · 初见' },
+  { webp: '图片/微信图片_20260603110034_53_40.webp', jpg: '图片/微信图片_20260603110034_53_40.jpg', caption: '在一起的那天' },
+  { webp: '图片/微信图片_20260603110037_54_40.webp', jpg: '图片/微信图片_20260603110037_54_40.jpg', caption: '他的镜头里全是我' },
+  { webp: '图片/微信图片_20260603110040_55_40.webp', jpg: '图片/微信图片_20260603110040_55_40.jpg', caption: '他在深圳，每晚视频' },
+  { webp: '图片/微信图片_20260603110042_56_40.webp', jpg: '图片/微信图片_20260603110042_56_40.jpg', caption: '周末约会' },
+  { webp: '图片/微信图片_20260603110044_57_40.webp', jpg: '图片/微信图片_20260603110044_57_40.jpg', caption: '一起做饭的日常' },
+  { webp: '图片/微信图片_20260603110047_58_40.webp', jpg: '图片/微信图片_20260603110047_58_40.jpg', caption: '最幸福的一刻' },
+  { webp: '图片/微信图片_20260603110049_59_40.webp', jpg: '图片/微信图片_20260603110049_59_40.jpg', caption: '他说"嫁给我"' },
+  { webp: '图片/微信图片_20260603110054_61_40.webp', jpg: '图片/微信图片_20260603110054_61_40.jpg', caption: '我们一起选车' },
+  { webp: '图片/微信图片_20260603110055_62_40.webp', jpg: '图片/微信图片_20260603110055_62_40.jpg', caption: '甜蜜日常' },
+  { webp: '图片/微信图片_20260603110058_63_40.webp', jpg: '图片/微信图片_20260603110058_63_40.jpg', caption: '在一起就很好' },
+  { webp: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.webp', jpg: '图片/3545d5bb-00d9-4841-bd7b-8dc1fa61e224.jpg', caption: '我们的请柬' },
 ];
 let currentPhotoIdx = 0;
 
@@ -1050,7 +1049,8 @@ function renderPhotoWall() {
   const wall = document.getElementById('photo-wall');
   wall.innerHTML = PHOTOS.map((p, i) => `
     <div class="photo-frame reveal" onclick="openLightbox(${i})">
-		<img src="${p.src}" alt="${p.caption}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:1px;" loading="lazy">
+		<img src="${p.src}" alt="${p.caption}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:1px;opacity:0;transition:opacity 0.5s ease;">
+      </picture>
       <div class="photo-caption">${p.caption}</div>
     </div>
   `).join('');
@@ -1061,7 +1061,7 @@ renderPhotoWall();
 
 // ==================== 灯箱 ====================
 function openLightbox(idx) {
-  if (!PHOTOS[idx].src) return; // 没图不打开
+  
   currentPhotoIdx = idx;
   updateLightbox();
   document.getElementById('lightbox').classList.add('open');
@@ -1081,7 +1081,7 @@ function navLightbox(dir) {
 }
 function updateLightbox() {
   const p = PHOTOS[currentPhotoIdx];
-  document.getElementById('lb-img').src = p.src;
+  document.getElementById('lb-img').src = p.jpg;
   document.getElementById('lb-caption').textContent = p.caption;
   document.getElementById('lb-counter').textContent = `${currentPhotoIdx + 1} / ${PHOTOS.length}`;
 }
