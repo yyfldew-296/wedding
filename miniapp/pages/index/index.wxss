@@ -1,6 +1,25 @@
 /* === 页面背景 === */
 page { background: #EFC8B2; color: #4a2c20; }
 
+/* === 加载屏 === */
+.splash {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #f8e0d4; z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.splash-ring {
+  width: 120rpx; height: 120rpx; border-radius: 50%;
+  border: 4rpx solid #c47a5a;
+  animation: splashPulse 1.2s ease-in-out infinite;
+}
+@keyframes splashPulse {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+.splash-xi { font-size: 80rpx; color: #a85a3a; margin-top: 30rpx; font-weight: bold; }
+.splash-names { font-size: 28rpx; color: #6b3a2a; letter-spacing: 8rpx; margin-top: 16rpx; }
+
 /* === 滚动容器 === */
 .page-scroll { height: 100vh; }
 

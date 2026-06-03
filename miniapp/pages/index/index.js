@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    splashDone: false,
     cd: { days: '00', hours: '00', mins: '00', secs: '00' },
     venue: '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌',
     photos: [
@@ -33,6 +34,7 @@ Page({
   },
 
   onLoad() {
+    setTimeout(() => this.setData({ splashDone: true }), 1500);
     this.startCountdown();
     this.initBlessings();
     // 开启分享

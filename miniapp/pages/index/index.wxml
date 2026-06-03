@@ -1,4 +1,12 @@
 <!-- 婚礼请柬 — 杨亦富 ❤ 杨静静 | 小程序版 -->
+
+<!-- 加载屏 -->
+<view class="splash" wx:if="{{!splashDone}}">
+  <view class="splash-ring"></view>
+  <text class="splash-xi">囍</text>
+  <text class="splash-names">杨亦富 & 杨静静</text>
+</view>
+
 <scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll">
 
   <!-- 1. 封面 -->

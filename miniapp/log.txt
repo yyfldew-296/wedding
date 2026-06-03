@@ -1,10 +1,57 @@
+准备 Page 文件
+准备 JS 文件
+ignoring files: project.private.config.json
 analyzing codes success
 Ignored by code analyzer: project.private.config.json
-getDevCodeByFileList-miniProgram
+初始化调试实例
+等待进程
+正在编译代码
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
+编译打包小程序
+编译 JSON 文件
+编译 app.js
+编译 app.js
+编译 app.wxss
+编译 app.wxss
+编译 pages/index/index.js
+编译 pages/index/index.js
 编译 pages/index/index.wxml
 编译 pages/index/index.wxml
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
+app.js
+pages/index/index.js
+app.wxss
 pages/index/index.wxml
+pages/index/index.wxss
+app.wxss
 pages/index/index.wxml
+pages/index/index.wxss
+app.js
+pages/index/index.js
+追加 babel helper 文件
+封装代码包
+编译所有文件完成，共编译 18 个文件，耗时：1734ms
+过滤文件
+正在处理编译结果
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Pack resource file finish
+正在对比文件列表
+对比文件列表完成，耗时：0ms
+正在打包
+编译 app.json
+编译 ext.json
+编译 1 个页面json文件
+打包完成，耗时：738ms
+上传中
+上传完成，耗时：14117ms
+初始化调试环境
+准备文件
 编译 app.json
 编译 ext.json
 编译 1 个页面json文件
@@ -12,38 +59,20 @@ analyzing codes...
 ignoring files: project.private.config.json
 analyzing codes success
 Ignored by code analyzer: project.private.config.json
+准备 Components 文件
+准备 Page 文件
+准备 JS 文件
+analyzing codes...
+ignoring files: project.private.config.json
+analyzing codes success
+Ignored by code analyzer: project.private.config.json
 getDevCodeByFileList-miniProgram
-编译 pages/index/index.wxss
-编译 pages/index/index.wxss
-pages/index/index.wxss
-pages/index/index.wxss
-getDevCodeByFileList-miniProgram
-编译 pages/index/index.js
-编译 pages/index/index.js
-pages/index/index.js
-pages/index/index.js
-编译 app.json
-app.json: 在项目根目录未找到 app.json 
-getDevCodeByFileList-miniProgram
-code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
-File: app.json
-编译 app.json
-app.json: 在项目根目录未找到 app.json 
-code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
-File: app.json
-编译 app.json
-app.json: 在项目根目录未找到 app.json 
-code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
-File: app.json
-编译 app.json
-app.json: 在项目根目录未找到 app.json 
-code: 10005, error: Error: app.json: 在项目根目录未找到 app.json 
-File: app.json
-编译 app.json
-app.json: 在项目根目录未找到 app.json 
-编译 app.json
-编译 ext.json
-编译 1 个页面json文件
+编译 pages/index/index.wxml
+编译 pages/index/index.wxml
+pages/index/index.wxml
+pages/index/index.wxml
+初始化调试实例
+等待进程
 编译 app.json
 编译 ext.json
 编译 1 个页面json文件
@@ -58,47 +87,14 @@ Ignored by code analyzer: project.private.config.json
 getDevCodeByFileList-miniProgram
 编译 app.wxss
 编译 app.wxss
+编译 pages/index/index.wxss
+编译 pages/index/index.wxss
 app.wxss
+pages/index/index.wxss
 app.wxss
+pages/index/index.wxss
 getDevCodeByFileList-miniProgram
-getDevCodeByFileList-miniProgram
-编译 app.js
-编译 app.js
-app.js
-app.js
-编译 app.json
-编译 ext.json
-编译 1 个页面json文件
-analyzing codes...
-ignoring files: project.private.config.json
-analyzing codes success
-Ignored by code analyzer: project.private.config.json
-getDevCodeByFileList-miniProgram
-编译 pages/index/index.wxss
-编译 pages/index/index.wxss
-pages/index/index.wxss
-pages/index/index.wxss
-编译 app.json
-编译 ext.json
-编译 1 个页面json文件
-analyzing codes...
-ignoring files: project.private.config.json
-analyzing codes success
-Ignored by code analyzer: project.private.config.json
-getDevCodeByFileList-miniProgram
-编译 pages/index/index.wxss
-编译 pages/index/index.wxss
-pages/index/index.wxss
-pages/index/index.wxss
-编译 app.json
-编译 ext.json
-编译 1 个页面json文件
-analyzing codes...
-ignoring files: project.private.config.json
-analyzing codes success
-Ignored by code analyzer: project.private.config.json
-getDevCodeByFileList-miniProgram
-编译 pages/index/index.wxss
-编译 pages/index/index.wxss
-pages/index/index.wxss
-pages/index/index.wxss
+编译 pages/index/index.wxml
+编译 pages/index/index.wxml
+pages/index/index.wxml
+pages/index/index.wxml
