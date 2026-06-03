@@ -127,14 +127,20 @@ page { background: #EFC8B2; color: #4a2c20; }
 /* === 照片墙 === */
 .photo-wall { display: flex; flex-wrap: wrap; justify-content: center; }
 .photo-frame {
-  width: calc(50% - 20rpx); background: #fff; margin: 10rpx;
-  padding: 10rpx 10rpx 40rpx; box-shadow: 0 6rpx 20rpx rgba(0,0,0,0.15);
-  border-radius: 4rpx; position: relative;
+  width: calc(50% - 20rpx); margin: 10rpx;
+  border-radius: 12rpx; overflow: hidden; position: relative;
+  box-shadow: 0 6rpx 20rpx rgba(0,0,0,0.12); background: #fff;
 }
-.photo-frame:nth-child(odd) { transform: rotate(-2deg); }
+.photo-frame:nth-child(odd) { transform: rotate(-1.5deg); }
 .photo-frame:nth-child(even) { transform: rotate(1.5deg); }
-.photo-img { width: 100%; height: 260rpx; border-radius: 2rpx; }
-.photo-caption { font-size: 20rpx; color: #a85a3a; text-align: center; margin-top: 8rpx; }
+.photo-img { width: 100%; display: block; height: 280rpx; }
+.photo-frame.photo-tall .photo-img { height: 420rpx; }
+.photo-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.5));
+  padding: 40rpx 12rpx 12rpx;
+}
+.photo-caption { font-size: 20rpx; color: #fff; letter-spacing: 2rpx; display: block; }
 .photo-hint { font-size: 22rpx; color: #6b3a2a; margin-top: 24rpx; display: block; }
 
 /* === 时间线 === */

@@ -70,9 +70,11 @@
     <view class="card">
       <view class="ribbon-title">💑 我们的日常</view>
       <view class="photo-wall">
-        <view class="photo-frame" wx:for="{{photos}}" wx:key="index" bindtap="previewPhoto" data-idx="{{index}}">
+        <view class="photo-frame {{index % 3 === 0 ? 'photo-tall' : ''}}" wx:for="{{photos}}" wx:key="index" bindtap="previewPhoto" data-idx="{{index}}">
           <image src="{{item.jpg}}" mode="aspectFill" class="photo-img" lazy-load />
-          <text class="photo-caption">{{item.caption}}</text>
+          <view class="photo-overlay">
+            <text class="photo-caption">{{item.caption}}</text>
+          </view>
         </view>
       </view>
       <text class="photo-hint">📸 点击照片看大图</text>
