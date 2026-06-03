@@ -1,25 +1,11 @@
-<!-- 加载屏 -->
-<view class="splash {{splashDone ? 'splash-out' : ''}}">
-  <view class="splash-ring"></view>
-  <text class="splash-xi">囍</text>
-  <text class="splash-names">杨亦富 & 杨静静</text>
-</view>
-
-<!-- 爱心Canvas -->
-<canvas type="2d" id="heartCanvas" class="heart-canvas"></canvas>
-
-<!-- 音乐按钮 -->
-<view class="music-btn {{musicPlaying ? 'music-spin' : ''}}" bindtap="toggleMusic">
-  <text>{{musicPlaying ? '🎵' : '🔇'}}</text>
-</view>
-
-<scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll" bindscroll="onScroll" scroll-top="{{scrollTop}}">
+<!-- 婚礼请柬 — 杨亦富 ❤ 杨静静 | 小程序版 -->
+<scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="page-scroll">
 
   <!-- 1. 封面 -->
   <view class="section cover">
     <view class="cover-deco">
       <text class="lantern-icon">🏮</text>
-      <text class="lantern-icon">🏮</text>
+      <text class="lantern-icon" style="animation-delay:0.5s">🏮</text>
     </view>
     <text class="shuangxi-big">囍</text>
     <view class="names-row">
@@ -30,7 +16,6 @@
     <view class="ornament">❦</view>
     <view class="date-badge">2027年1月23日 · 腊月十六</view>
     <text class="cover-subtitle">从深圳到铜仁，从相遇到白头</text>
-    <text class="scroll-hint">↑ 向上滑动 ↑</text>
   </view>
 
   <!-- 2. 邀请语 -->
@@ -45,6 +30,7 @@
         <view class="poem">
           <text>2024年秋，我们相遇</text>
           <text>2027年冬，我们成家</text>
+          <text>两年多的日子里</text>
           <text>他在深圳写代码，她在家里默默成长</text>
           <text>隔着千里，每一天都在靠近彼此</text>
         </view>
@@ -63,38 +49,25 @@
       <view class="ornament">❦</view>
       <text class="section-subtitle">每一天，都在靠近我们的家</text>
       <view class="countdown-grid">
-        <view class="countdown-box">
-          <text class="cd-num">{{cd.days}}</text>
-          <text class="cd-label">天</text>
-        </view>
-        <view class="countdown-box">
-          <text class="cd-num">{{cd.hours}}</text>
-          <text class="cd-label">时</text>
-        </view>
-        <view class="countdown-box">
-          <text class="cd-num">{{cd.mins}}</text>
-          <text class="cd-label">分</text>
-        </view>
-        <view class="countdown-box">
-          <text class="cd-num">{{cd.secs}}</text>
-          <text class="cd-label">秒</text>
-        </view>
+        <view class="countdown-box"><text class="cd-num">{{cd.days}}</text><text class="cd-label">天</text></view>
+        <view class="countdown-box"><text class="cd-num">{{cd.hours}}</text><text class="cd-label">时</text></view>
+        <view class="countdown-box"><text class="cd-num">{{cd.mins}}</text><text class="cd-label">分</text></view>
+        <view class="countdown-box"><text class="cd-num">{{cd.secs}}</text><text class="cd-label">秒</text></view>
       </view>
     </view>
   </view>
 
-  <!-- 4. 照片墙 · 杂志风 -->
+  <!-- 4. 照片墙 -->
   <view class="section">
     <view class="card">
       <view class="ribbon-title">💑 我们的日常</view>
-      <view class="photo-gallery">
-        <view class="photo-card {{index % 3 === 0 ? 'photo-tall' : ''}}" wx:for="{{photos}}" wx:key="index" bindtap="previewPhoto" data-idx="{{index}}">
-          <image src="{{item.jpg}}" mode="aspectFill" class="photo-card-img" lazy-load />
-          <view class="photo-overlay">
-            <text class="photo-overlay-text">{{item.caption}}</text>
-          </view>
+      <view class="photo-wall">
+        <view class="photo-frame" wx:for="{{photos}}" wx:key="index" bindtap="previewPhoto" data-idx="{{index}}">
+          <image src="{{item.jpg}}" mode="aspectFill" class="photo-img" lazy-load />
+          <text class="photo-caption">{{item.caption}}</text>
         </view>
       </view>
+      <text class="photo-hint">📸 点击照片看大图</text>
     </view>
   </view>
 
@@ -105,9 +78,7 @@
       <view class="ornament">❦</view>
       <view class="timeline">
         <view class="tl-item" wx:for="{{timeline}}" wx:key="index">
-          <view class="tl-dot {{item.heart ? 'heart-dot' : ''}}">
-            <text wx:if="{{item.heart}}" class="tl-dot-heart">❤</text>
-          </view>
+          <view class="tl-dot {{item.heart ? 'heart-dot' : ''}}"></view>
           <view class="tl-card">
             <text class="tl-date">{{item.date}}</text>
             <text class="tl-title">{{item.title}}</text>
@@ -127,12 +98,12 @@
         <view class="vow-card">
           <text class="vow-label">🤵 新郎</text>
           <text class="vow-name">杨亦富</text>
-          <text class="vow-text">{{groomVow}}</text>
+          <text class="vow-text">静静，我是一个写代码的人\n不擅长说漂亮话\n但我把我们的每一天都记得很精确\n2024年10月4日 18:12，遇见你\n2024年11月25日 18:49，爱上你\n\n我在深圳加班到深夜的时候\n想到你在等我，就觉得一切都值得\n我买那辆SUV，是因为答应过你\n要开着车带你去看整个中国\n\n我没什么大本事\n但我会用一辈子，写一段只属于我们的程序\n它只有一个功能——\n让你每天都比昨天更幸福一点点</text>
         </view>
         <view class="vow-card">
           <text class="vow-label">👰 新娘</text>
           <text class="vow-name">杨静静</text>
-          <text class="vow-text">{{brideVow}}</text>
+          <text class="vow-text">亦富，谢谢你出现在我的生命里\n你总说自己不浪漫\n可你会记住我们相遇的每一分钟\n会在加班后给我打视频\n会默默存钱，计划着带我走遍全国\n\n你说你是程序员，没什么大本事\n但在我心里，你是最厉害的人\n因为你把我规划进了你的每一个未来\n\n从今天起\n你在哪，家就在哪\n不管是深圳的出租屋，还是路上的SUV\n有你的地方，就是我的家</text>
         </view>
       </view>
     </view>
@@ -158,10 +129,8 @@
           <text class="detail-icon">📍</text>
           <text class="detail-label">婚礼地点：</text>
           <text class="detail-value">{{venue}}</text>
-        </view>
-        <view class="detail-row detail-row-btns">
-          <button class="btn-copy" bindtap="copyAddress">📋 复制地址</button>
-          <button class="btn-map" bindtap="openMap">🗺️ 一键导航</button>
+          <button class="btn-copy" bindtap="copyAddress">复制</button>
+          <button class="btn-map" bindtap="openMap">🗺️ 导航</button>
         </view>
         <view class="detail-row">
           <text class="detail-icon">🍽️</text>
@@ -185,7 +154,7 @@
       </view>
       <view class="blessing-list">
         <view class="blessing-item" wx:for="{{blessings}}" wx:key="index">
-          <text class="b-name">🧧 {{item.name}}</text>
+          <text class="b-name">{{item.name}}</text>
           <text class="b-msg">{{item.msg}}</text>
           <text class="b-time">{{item.time}}</text>
         </view>

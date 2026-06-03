@@ -2,11 +2,8 @@ const app = getApp();
 
 Page({
   data: {
-    splashDone: false,
-    musicPlaying: false,
     cd: { days: '00', hours: '00', mins: '00', secs: '00' },
     venue: '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌',
-    scrollTop: 0,
     photos: [
       { jpg: '/images/微信图片_20260603110032_52_40.webp', caption: '2024年秋 · 初见' },
       { jpg: '/images/微信图片_20260603110034_53_40.webp', caption: '在一起的那天' },
@@ -29,110 +26,21 @@ Page({
       { date: '2026年12月', title: '🚗 第一辆属于我们的车', desc: '一辆属于我们两个人的SUV。它不只是车——是我们在路上的小家，是想走就走的自由。' },
       { date: '2027年1月23日', title: '💒 步入婚姻', desc: '在家人和朋友的见证下，在生养我们的贵州山里，我们成为彼此生命中最重要的人。', heart: true },
     ],
-    groomVow: '',
-    brideVow: '',
     blessName: '',
     blessMsg: '',
     blessings: [],
-    timer: null,
-    _audio: null,
-    _hearts: [],
-    _heartTimer: null,
+    timer: null
   },
 
   onLoad() {
-    // 加载屏 1.5秒后消失
-    setTimeout(() => this.setData({ splashDone: true }), 1500);
-
-    // 初始化誓言（打字机效果）
-    this.initVows();
-
     this.startCountdown();
     this.initBlessings();
-    this.initMusic();
-    this.startHeartRain();
-
+    // 开启分享
     wx.showShareMenu({ withShareTicket: true, menus: ['shareAppMessage', 'shareTimeline'] });
   },
 
   onUnload() {
     if (this.data.timer) clearInterval(this.data.timer);
-    if (this.data._heartTimer) clearInterval(this.data._heartTimer);
-    if (this.data._audio) { this.data._audio.destroy(); }
-  },
-
-  // ===== 音乐 =====
-  initMusic() {
-    const audio = wx.createInnerAudioContext();
-    // 替换为你们的婚礼音乐URL
-    audio.src = 'https://music.163.com/song/media/outer/url?id=5252847.mp3';
-    audio.loop = true;
-    audio.autoplay = false;
-    this.data._audio = audio;
-  },
-
-  toggleMusic() {
-    const audio = this.data._audio;
-    if (!audio) return;
-    if (this.data.musicPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-    this.setData({ musicPlaying: !this.data.musicPlaying });
-  },
-
-  // ===== 爱心雨 =====
-  startHeartRain() {
-    const query = wx.createSelectorQuery();
-    query.select('#heartCanvas').fields({ node: true, size: true }).exec(res => {
-      if (!res[0] || !res[0].node) return;
-      const canvas = res[0].node;
-      const ctx = canvas.getContext('2d');
-      const dpr = wx.getSystemInfoSync().pixelRatio;
-      canvas.width = res[0].width * dpr;
-      canvas.height = res[0].height * dpr;
-      ctx.scale(dpr, dpr);
-
-      const W = res[0].width;
-      const H = res[0].height;
-      const hearts = [];
-      for (let i = 0; i < 20; i++) {
-        hearts.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          size: Math.random() * 16 + 8,
-          vy: Math.random() * 0.6 + 0.3,
-          vx: (Math.random() - 0.5) * 0.3,
-          opacity: Math.random() * 0.3 + 0.1,
-        });
-      }
-
-      const draw = () => {
-        ctx.clearRect(0, 0, W, H);
-        hearts.forEach(h => {
-          h.y += h.vy;
-          h.x += h.vx + Math.sin(h.y * 0.02) * 0.2;
-          if (h.y > H + 20) { h.y = -20; h.x = Math.random() * W; }
-          ctx.globalAlpha = h.opacity;
-          ctx.fillStyle = '#d47060';
-          ctx.font = `${h.size}px serif`;
-          ctx.fillText('❤', h.x, h.y);
-        });
-        ctx.globalAlpha = 1;
-      };
-
-      const loop = () => {
-        draw();
-        this.data._heartTimer = setTimeout(() => loop(), 50);
-      };
-      loop();
-    });
-  },
-
-  // ===== 滚动处理 =====
-  onScroll(e) {
-    // 用于未来扩展（视差等）
   },
 
   // ===== 倒计时 =====
@@ -158,15 +66,7 @@ Page({
     this.data.timer = setInterval(tick, 1000);
   },
 
-  // ===== 誓言 · 打字机效果 =====
-  initVows() {
-    const groom = '静静，我是一个写代码的人。不擅长说漂亮话，但我把我们的每一天都记得很精确——2024年10月4日18:12遇见你，2024年11月25日18:49爱上你。我在深圳加班到深夜的时候，想到你在等我，就觉得一切都值得。我没什么大本事，但我会用一辈子，写一段只属于我们的程序，它只有一个功能：让你每天都比昨天更幸福一点点。';
-    const bride = '亦富，谢谢你出现在我的生命里。你总说自己不浪漫，可你会记住我们相遇的每一分钟，会在加班后给我打视频，会默默存钱，计划着带我走遍全国。从今天起，你在哪，家就在哪。不管是深圳的出租屋，还是路上的SUV——有你的地方，就是我的家。';
-
-    this.setData({ groomVow: groom, brideVow: bride });
-  },
-
-  // ===== 照片预览 =====
+  // ===== 照片预览（小程序原生） =====
   previewPhoto(e) {
     const idx = e.currentTarget.dataset.idx;
     wx.previewImage({
@@ -175,18 +75,19 @@ Page({
     });
   },
 
-  // ===== 复制地址 =====
+  // ===== 复制地址（小程序原生API） =====
   copyAddress() {
     wx.setClipboardData({
       data: this.data.venue,
-      success() { wx.showToast({ title: '地址已复制 ✓', icon: 'success' }); }
+      success() { wx.showToast({ title: '已复制 ✓', icon: 'success' }); }
     });
   },
 
-  // ===== 地图导航 =====
+  // ===== 地图导航（小程序原生地图） =====
   openMap() {
     wx.openLocation({
-      latitude: 28.05, longitude: 108.95,
+      latitude: 28.05,
+      longitude: 108.95,
       name: '杨亦富 & 杨静静 婚礼',
       address: this.data.venue,
       scale: 15,
@@ -200,13 +101,14 @@ Page({
   submitBlessing() {
     const { blessName, blessMsg } = this.data;
     if (!blessName.trim() || !blessMsg.trim()) {
-      wx.showToast({ title: '请填写名字和祝福哦~', icon: 'none' });
+      wx.showToast({ title: '请填写名字和祝福', icon: 'none' });
       return;
     }
     const now = new Date();
     const time = `${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
     const blessings = [{ name: blessName, msg: blessMsg, time }, ...this.data.blessings];
     this.setData({ blessings, blessName: '', blessMsg: '' });
+    // 存本地
     wx.setStorageSync('wedding_blessings', blessings);
     wx.showToast({ title: '祝福已送出 💝', icon: 'success' });
   },
@@ -214,6 +116,7 @@ Page({
   initBlessings() {
     const saved = wx.getStorageSync('wedding_blessings') || [];
     if (saved.length === 0) {
+      // 预设示例祝福
       this.setData({ blessings: [
         { name: '妈妈', msg: '亦富、静静，看着你们走到今天，妈妈心里高兴。以后的日子，两个人好好的。', time: '6/3 10:30' },
         { name: '爸爸', msg: '儿子，成家了就是大人了。对静静好一点，好好过日子。', time: '6/3 10:31' },
@@ -229,6 +132,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '杨亦富 ❤ 杨静静 | 婚礼请柬',
+      desc: '2027年1月23日 · 腊月十六 · 诚邀您的见证',
       path: '/pages/index/index',
     };
   },
