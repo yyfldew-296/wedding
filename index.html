@@ -1396,7 +1396,7 @@ function openMapApp(type) {
 
   const urls = {
     amap: `https://uri.amap.com/navigation?to=${encodeURIComponent(addr)}`,
-    tencent: `https://apis.map.qq.com/uri/v1/navigation?to=${encodeURIComponent(addr)}&referer=yyfloveyjj`,
+    tencent: `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&referer=yyfloveyjj`,
   };
 
   window.open(urls[app], '_blank');
