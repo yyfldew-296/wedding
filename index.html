@@ -1385,7 +1385,8 @@ updateCountdown();
 
 // ==================== 地图导航 ====================
 function openMapApp(type) {
-  const addr = '贵州省铜仁市松桃县乌罗镇杨立掌';
+  // 导航用镇级地址（村级搜不到）
+  const addr = '贵州省铜仁市松桃县乌罗镇';
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
   let app = type;
@@ -1509,7 +1510,7 @@ addBlessing('静静的闺蜜', '静静要幸福！你找到了一个把你写进
     iconAnchor: [18, 36],
   });
   L.marker([lat, lng], { icon }).addTo(map)
-    .bindPopup('<b>💒 杨亦富 & 杨静静</b><br>婚礼地点 · 杨立掌').openPopup();
+    .bindPopup('<b>💒 杨亦富 & 杨静静</b><br>乌罗镇 · 杨立掌<br><small>导航到乌罗镇后问路即可</small>').openPopup();
 })();
 </script>
 </body>
