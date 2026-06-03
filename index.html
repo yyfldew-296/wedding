@@ -831,7 +831,7 @@ main { position: relative; z-index: 2; }
           </span>
           <p style="margin-top:10px;"><em>2027年1月23日</em></p>
           <p style="font-size:0.85rem; color:#8b6914;">农历腊月十六 · 星期六</p>
-          <p style="margin-top:14px;">贵州省铜仁市松桃县乌罗镇</p>
+          <p style="margin-top:14px;">贵州省铜仁市松桃苗族自治县乌罗镇</p>
           <p style="font-size:0.9rem;">恭候您的到来，见证我们的幸福</p>
         </div>
       </div>
@@ -999,7 +999,7 @@ main { position: relative; z-index: 2; }
           <div class="detail-row">
             <span class="detail-icon">📍</span>
             <span class="detail-label">婚礼地点：</span>
-            <span class="detail-value" id="venue-text">贵州省铜仁市松桃县乌罗镇杨立掌</span>
+            <span class="detail-value" id="venue-text">贵州省铜仁市松桃苗族自治县乌罗镇杨立掌</span>
             <button class="btn-copy" id="btn-copy-addr" onclick="copyAddress()">复制</button>
             <button class="btn-map" onclick="openMapApp('auto')">🗺️ 导航</button>
           </div>
@@ -1019,7 +1019,7 @@ main { position: relative; z-index: 2; }
       <div class="card-3d-inner" style="max-width:660px;">
         <div class="section-title">婚 礼 地 图</div>
         <div class="ornament">❦</div>
-        <div class="section-subtitle">贵州省铜仁市松桃县乌罗镇杨立掌</div>
+        <div class="section-subtitle">贵州省铜仁市松桃苗族自治县乌罗镇杨立掌</div>
         <div class="map-container">
           <div id="wedding-map" class="map-frame"></div>
           <div class="map-buttons">
@@ -1385,19 +1385,18 @@ updateCountdown();
 
 // ==================== 地图导航 ====================
 function openMapApp(type) {
-  // 导航用镇级地址（村级搜不到）
-  const addr = '贵州省铜仁市松桃县乌罗镇';
+  // 完整地址：高德已验证可搜到杨立掌
+  const addr = '贵州省铜仁市松桃苗族自治县乌罗镇杨立掌';
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
 
   let app = type;
-  // auto: 微信→腾讯地图, 其他→高德
   if (app === 'auto') {
     app = isWeChat ? 'tencent' : 'amap';
   }
 
   const urls = {
     amap: `https://uri.amap.com/navigation?to=${encodeURIComponent(addr)}`,
-    tencent: `https://apis.map.qq.com/uri/v1/search?keyword=${encodeURIComponent(addr)}&referer=yyfloveyjj`,
+    tencent: `https://apis.map.qq.com/uri/v1/navigation?to=${encodeURIComponent(addr)}&referer=yyfloveyjj`,
   };
 
   window.open(urls[app], '_blank');
@@ -1490,7 +1489,7 @@ addBlessing('静静的闺蜜', '静静要幸福！你找到了一个把你写进
 (function initMap() {
   const mapEl = document.getElementById('wedding-map');
   if (!mapEl) return;
-  // 贵州省铜仁市松桃县乌罗镇杨立掌
+  // 贵州省铜仁市松桃苗族自治县乌罗镇杨立掌
   const lat = 28.05, lng = 108.95;
   const map = L.map(mapEl, {
     center: [lat, lng],
