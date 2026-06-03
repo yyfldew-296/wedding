@@ -32,12 +32,14 @@ Page({
     blessMsg: '',
     blessings: [],
     timer: null,
-    _audio: null
+    _audio: null,
+    _heartTimer: null
   },
 
   onLoad() {
     setTimeout(() => this.setData({ splashDone: true }), 1500);
     this.initMusic();
+    this.startHeartRain();
     this.startCountdown();
     this.initBlessings();
     // 开启分享
@@ -47,6 +49,7 @@ Page({
   onUnload() {
     if (this.data.timer) clearInterval(this.data.timer);
     if (this.data._audio) { this.data._audio.destroy(); }
+    if (this.data._heartTimer) clearTimeout(this.data._heartTimer);
   },
 
   // ===== 音乐 =====
@@ -71,6 +74,46 @@ Page({
       audio.play();
     }
     this.setData({ musicPlaying: !this.data.musicPlaying });
+  },
+
+  // ===== 爱心雨 =====
+  startHeartRain() {
+    const self = this;
+    const query = wx.createSelectorQuery();
+    query.select('#heartCanvas').fields({ node: true, size: true }).exec(res => {
+      if (!res[0] || !res[0].node) return;
+      const canvas = res[0].node;
+      const ctx = canvas.getContext('2d');
+      const dpr = wx.getSystemInfoSync().pixelRatio;
+      canvas.width = res[0].width * dpr;
+      canvas.height = res[0].height * dpr;
+      ctx.scale(dpr, dpr);
+      const W = res[0].width, H = res[0].height;
+      const hearts = [];
+      for (let i = 0; i < 18; i++) {
+        hearts.push({
+          x: Math.random() * W, y: Math.random() * H,
+          s: Math.random() * 14 + 8,
+          vy: Math.random() * 0.5 + 0.2,
+          vx: (Math.random() - 0.5) * 0.3,
+          o: Math.random() * 0.25 + 0.08,
+        });
+      }
+      const loop = () => {
+        ctx.clearRect(0, 0, W, H);
+        hearts.forEach(h => {
+          h.y += h.vy; h.x += h.vx + Math.sin(h.y * 0.02) * 0.2;
+          if (h.y > H + 20) { h.y = -20; h.x = Math.random() * W; }
+          ctx.globalAlpha = h.o;
+          ctx.fillStyle = '#d47060';
+          ctx.font = `${h.s}px serif`;
+          ctx.fillText('❤', h.x, h.y);
+        });
+        ctx.globalAlpha = 1;
+        self.data._heartTimer = setTimeout(() => loop(), 50);
+      };
+      loop();
+    });
   },
 
   // ===== 倒计时 =====

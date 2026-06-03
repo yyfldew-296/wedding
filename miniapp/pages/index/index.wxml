@@ -7,6 +7,9 @@
   <text class="splash-names">杨亦富 & 杨静静</text>
 </view>
 
+<!-- 爱心Canvas -->
+<canvas type="2d" id="heartCanvas" class="heart-canvas"></canvas>
+
 <!-- 音乐按钮 -->
 <view class="music-btn {{musicPlaying ? 'music-spin' : ''}}" bindtap="toggleMusic">
   <text>{{musicPlaying ? '🎵' : '🔇'}}</text>
